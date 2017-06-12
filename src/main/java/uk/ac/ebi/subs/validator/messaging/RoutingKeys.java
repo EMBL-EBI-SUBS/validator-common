@@ -22,6 +22,9 @@ public class RoutingKeys {
     public static final String EVENT_ENA_ASSAYDATA_CREATED = "ena.assaydata.created";
     public static final String EVENT_ENA_ASSAYDATA_UPDATED = "ena.assaydata.updated";
 
+    public static final String EVENT_TAXON_SAMPLE_CREATED = "taxon.sample.created";
+    public static final String EVENT_TAXON_SAMPLE_UPDATED = "taxon.sample.updated";
+
     public static final String EVENT_AE_SAMPLE_CREATED = "ae.sample.created";
     public static final String EVENT_AE_SAMPLE_UPDATED = "ae.sample.updated";
 
