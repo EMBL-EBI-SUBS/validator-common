@@ -14,6 +14,8 @@ public class Queues {
     public static final String ENA_ASSAY_VALIDATION = "ena-assay-validation";
     public static final String ENA_ASSAYDATA_VALIDATION = "ena-assaydata-validation";
 
+    public static final String TAXON_SAMPLE_VALIDATION = "taxon-sample-validation";
+
     public static final String AE_SAMPLE_VALIDATION = "ae-sample-validation";
 
     public static final String VALIDATION_RESULT = "validation-result";
