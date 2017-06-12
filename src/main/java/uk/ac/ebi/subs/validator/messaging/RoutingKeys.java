@@ -19,8 +19,8 @@ public class RoutingKeys {
     public static final String EVENT_ENA_SAMPLE_UPDATED = "ena.sample.updated";
     public static final String EVENT_ENA_ASSAY_CREATED = "ena.assay.created";
     public static final String EVENT_ENA_ASSAY_UPDATED = "ena.assay.updated";
-    public static final String EVENT_ENA_ASSYADATA_CREATED = "ena.assaydata.created";
-    public static final String EVENT_ENA_ASSYADATA_UPDATED = "ena.assaydata.updated";
+    public static final String EVENT_ENA_ASSAYDATA_CREATED = "ena.assaydata.created";
+    public static final String EVENT_ENA_ASSAYDATA_UPDATED = "ena.assaydata.updated";
 
     public static final String EVENT_AE_SAMPLE_CREATED = "ae.sample.created";
     public static final String EVENT_AE_SAMPLE_UPDATED = "ae.sample.updated";

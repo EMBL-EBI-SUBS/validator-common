@@ -235,7 +235,7 @@ public class ValidatorQueueConfig {
     @Bean
     Binding validationForCreatedENAAssayDataBinding(Queue enaAssayDataQueue, TopicExchange validationExchange) {
         return BindingBuilder.bind(enaAssayDataQueue).to(validationExchange)
-                .with(RoutingKeys.EVENT_ENA_ASSYADATA_CREATED);
+                .with(RoutingKeys.EVENT_ENA_ASSAYDATA_CREATED);
     }
 
     /**
@@ -250,7 +250,7 @@ public class ValidatorQueueConfig {
     @Bean
     Binding validationForUpdatedENAAssayDataBinding(Queue enaAssayDataQueue, TopicExchange validationExchange) {
         return BindingBuilder.bind(enaAssayDataQueue).to(validationExchange)
-                .with(RoutingKeys.EVENT_ENA_ASSYADATA_UPDATED);
+                .with(RoutingKeys.EVENT_ENA_ASSAYDATA_UPDATED);
     }
 
     //---- END OF ENA Validator messaging settings ----/
