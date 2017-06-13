@@ -1,19 +1,21 @@
 package uk.ac.ebi.subs.validator.data;
 
+import uk.ac.ebi.subs.data.submittable.BaseSubmittable;
+
 /**
  * A container object holding the submission ID and the entity to validate.
  *
  * Created by karoly on 30/05/2017.
  */
-public class SubmittableValidationEnvelope<BaseSubmittable> {
+public class SubmittableValidationEnvelope<T extends BaseSubmittable> {
 
     private String submissionId;
-    private BaseSubmittable entityToValidate;
+    private T entityToValidate;
 
     public SubmittableValidationEnvelope() {
     }
 
-    public SubmittableValidationEnvelope(String submissionId, BaseSubmittable entityToValidate) {
+    public SubmittableValidationEnvelope(String submissionId, T entityToValidate) {
         this.submissionId = submissionId;
         this.entityToValidate = entityToValidate;
     }
@@ -22,7 +24,7 @@ public class SubmittableValidationEnvelope<BaseSubmittable> {
         return submissionId;
     }
 
-    public BaseSubmittable getEntityToValidate() {
+    public T getEntityToValidate() {
         return entityToValidate;
     }
 }
