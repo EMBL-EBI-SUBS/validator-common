@@ -6,7 +6,6 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import uk.ac.ebi.subs.data.component.Archive;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,10 +28,10 @@ public class ValidationResult extends AbstractValidationResult implements Identi
     private String submissionId;
 
     @Transient
-    private List<Archive> expectedArchives;
+    private List<ValidationAuthor> validationAuthors;
 
     private List<SingleValidationResult> validationResults = new ArrayList<>();
-    private Map<Archive, Boolean> expectedResults = new HashMap<>();
+    private Map<ValidationAuthor, Boolean> expectedResults = new HashMap<>();
 
     @Override
     public String getUuid() {
@@ -62,12 +61,12 @@ public class ValidationResult extends AbstractValidationResult implements Identi
         this.submissionId = submissionId;
     }
 
-    public List<Archive> getExpectedArchives() {
-        return expectedArchives;
+    public List<ValidationAuthor> getValidationAuthors() {
+        return validationAuthors;
     }
 
-    public void setExpectedArchives(List<Archive> expectedArchives) {
-        this.expectedArchives = expectedArchives;
+    public void setValidationAuthors(List<ValidationAuthor> validationAuthors) {
+        this.validationAuthors = validationAuthors;
     }
 
     public List<SingleValidationResult> getValidationResults() {
@@ -78,11 +77,11 @@ public class ValidationResult extends AbstractValidationResult implements Identi
         this.validationResults = validationResults;
     }
 
-    public Map<Archive, Boolean> getExpectedResults() {
+    public Map<ValidationAuthor, Boolean> getExpectedResults() {
         return expectedResults;
     }
 
-    public void setExpectedResults(Map<Archive, Boolean> expectedResults) {
+    public void setExpectedResults(Map<ValidationAuthor, Boolean> expectedResults) {
         this.expectedResults = expectedResults;
     }
 }

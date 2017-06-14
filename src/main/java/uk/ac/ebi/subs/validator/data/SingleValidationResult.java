@@ -1,7 +1,6 @@
 package uk.ac.ebi.subs.validator.data;
 
 import lombok.ToString;
-import uk.ac.ebi.subs.data.component.Archive;
 
 /**
   * Validation entity result document to store an entity validation result for a specific rule set
@@ -13,13 +12,13 @@ public class SingleValidationResult extends AbstractValidationResult implements 
     private String uuid;
     private String validationResultUUID;
 
-    private Archive archive;
+    private ValidationAuthor validationAuthor;
 
     public SingleValidationResult() {
     }
 
-    public SingleValidationResult(Archive archive, String entityUuid) {
-        this.archive = archive;
+    public SingleValidationResult(ValidationAuthor validationAuthor, String entityUuid) {
+        this.validationAuthor = validationAuthor;
         this.setEntityUuid(entityUuid);
         this.setValidationStatus(ValidationStatus.Pending);
     }
@@ -44,14 +43,13 @@ public class SingleValidationResult extends AbstractValidationResult implements 
         this.uuid = uuid;
     }
 
-    public Archive getArchive() {
-        return archive;
+    public ValidationAuthor getValidationAuthor() {
+        return validationAuthor;
     }
 
-    public void setArchive(Archive archive) {
-        this.archive = archive;
+    public void setValidationAuthor(ValidationAuthor validationAuthor) {
+        this.validationAuthor = validationAuthor;
     }
-
 
     public String getValidationResultUUID() {
         return validationResultUUID;

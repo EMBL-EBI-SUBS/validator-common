@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import uk.ac.ebi.subs.data.component.Archive;
+import uk.ac.ebi.subs.validator.data.ValidationAuthor;
 import uk.ac.ebi.subs.validator.data.ValidationResult;
 
 import java.util.HashMap;
@@ -32,10 +33,10 @@ public class ValidationResultRepositoryTest {
 
     @Before
     public void buildUp() {
-        Map<Archive, Boolean> expectedResults = new HashMap<>();
-        expectedResults.put(Archive.BioSamples, true);
-        expectedResults.put(Archive.ArrayExpress, false);
-        expectedResults.put(Archive.Ena, false);
+        Map<ValidationAuthor, Boolean> expectedResults = new HashMap<>();
+        expectedResults.put(ValidationAuthor.Biosamples, true);
+        expectedResults.put(ValidationAuthor.Taxonomy, false);
+        expectedResults.put(ValidationAuthor.Ena, false);
 
         validationResult = new ValidationResult();
         validationResult.setUuid(UUID.randomUUID().toString());
