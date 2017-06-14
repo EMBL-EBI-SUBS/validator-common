@@ -7,14 +7,16 @@ package uk.ac.ebi.subs.validator.messaging;
  */
 public class Queues {
 
-    public static final String BIOSAMPLES_SAMPLE_VALIDATION = "biosamples-sample-validation";
-
     public static final String ENA_STUDY_VALIDATION = "ena-study-validation";
     public static final String ENA_SAMPLE_VALIDATION = "ena-sample-validation";
     public static final String ENA_ASSAY_VALIDATION = "ena-assay-validation";
     public static final String ENA_ASSAYDATA_VALIDATION = "ena-assaydata-validation";
 
     public static final String TAXON_SAMPLE_VALIDATION = "taxon-sample-validation";
+    
+    public static final String BIOSAMPLES_SAMPLE_VALIDATION = "biosamples-sample-validation";
+    
+    public static final String CORE_SAMPLE_VALIDATION = "core-sample-validation";
 
     public static final String AE_SAMPLE_VALIDATION = "ae-sample-validation";
 
