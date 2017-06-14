@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import uk.ac.ebi.subs.data.component.Archive;
 import uk.ac.ebi.subs.validator.data.ValidationAuthor;
 import uk.ac.ebi.subs.validator.data.ValidationResult;
 
@@ -61,7 +60,7 @@ public class ValidationResultRepositoryTest {
         ValidationResult retrievedResult = validationResultRepository.findOne(validationResult.getUuid());
         System.out.println(retrievedResult);
 
-        assertThat(retrievedResult.getExpectedResults().get(Archive.BioSamples), is(true));
+        assertThat(retrievedResult.getExpectedResults().get(ValidationAuthor.Biosamples), is(true));
     }
 
     @Test
