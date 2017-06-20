@@ -1,13 +1,16 @@
 version '1.0.1-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'maven-publish'
 apply plugin: 'org.springframework.boot'
 
 group 'uk.ac.ebi.subs.validator.common'
 
+
 sourceCompatibility = 1.8
 
 repositories {
+    mavenLocal()
     mavenCentral()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
 }
@@ -27,6 +30,7 @@ buildscript {
 
 dependencies {
     compile group: 'uk.ac.ebi.subs', name: 'subs-data-model', version: '1.0.0-SNAPSHOT'
+    compile group: 'uk.ac.ebi.subs', name: 'subs-messaging', version: '1.0.0-SNAPSHOT'
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.12'
 
@@ -35,6 +39,17 @@ dependencies {
 
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
     testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
 }
 
 bootRepackage.enabled = false

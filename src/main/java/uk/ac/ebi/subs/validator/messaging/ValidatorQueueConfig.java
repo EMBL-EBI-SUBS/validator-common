@@ -33,9 +33,9 @@ public class ValidatorQueueConfig {
      * @return a {@link Binding} between the submission exchange and validation queue using the routing key of created submissions.
      */
     @Bean
-    Binding validationForCreatedSubmissionBinding(Queue submissionSampleValidatorQueue, TopicExchange submissionExchange) {
+    Binding validationForCreatedSampleSubmissionBinding(Queue submissionSampleValidatorQueue, TopicExchange submissionExchange) {
         return BindingBuilder.bind(submissionSampleValidatorQueue).to(submissionExchange)
-                .with(RoutingKeys.SUBMISSION_VALIDATOR_SUBMISSION_CREATED);
+                .with(RoutingKeys.SUBMITTABLE_SAMPLE_CREATED);
     }
 
     /**
@@ -46,9 +46,9 @@ public class ValidatorQueueConfig {
      * @return a {@link Binding} between the submission exchange and validation queue using the routing key of updated submissions.
      */
     @Bean
-    Binding validationForUpdatedSubmissionBinding(Queue submissionSampleValidatorQueue, TopicExchange submissionExchange) {
+    Binding validationForUpdatedSampleSubmissionBinding(Queue submissionSampleValidatorQueue, TopicExchange submissionExchange) {
         return BindingBuilder.bind(submissionSampleValidatorQueue).to(submissionExchange)
-                .with(RoutingKeys.SUBMISSION_VALIDATOR_SUBMISSION_UPDATED);
+                .with(RoutingKeys.SUBMITTABLE_SAMPLE_UPDATED);
     }
 
     /**
@@ -131,6 +131,70 @@ public class ValidatorQueueConfig {
     Binding validationForUpdatedENAStudyBinding(Queue enaStudyQueue, TopicExchange validationExchange) {
         return BindingBuilder.bind(enaStudyQueue).to(validationExchange)
                 .with(RoutingKeys.EVENT_ENA_STUDY_UPDATED);
+    }
+
+    @Bean
+    Queue submissionStudyValidatorQueue() {
+        return new Queue(Queues.SUBMISSION_STUDY_VALIDATOR, true);
+    }
+
+
+    /**
+     * Create a {@link Binding} between the submission exchange and validation queue using the routing key of created submissions.
+     *
+     * @param submissionStudyValidatorQueue {@link Queue} for validating study submissions before submitting them
+     * @param submissionExchange {@link TopicExchange} for submissions
+     * @return a {@link Binding} between the submission exchange and validation queue using the routing key of created submissions.
+     */
+    @Bean
+    Binding validationForCreatedStudySubmissionBinding(Queue submissionStudyValidatorQueue, TopicExchange submissionExchange) {
+        return BindingBuilder.bind(submissionStudyValidatorQueue).to(submissionExchange)
+                .with(RoutingKeys.SUBMITTABLE_STUDY_CREATED);
+    }
+
+    /**
+     * Create a {@link Binding} between the submission exchange and validation queue using the routing key of updated submissions.
+     *
+     * @param submissionStudyValidatorQueue {@link Queue} for validating study submissions before submitting them
+     * @param submissionExchange {@link TopicExchange} for submissions
+     * @return a {@link Binding} between the submission exchange and validation queue using the routing key of updated submissions.
+     */
+    @Bean
+    Binding validationForUpdatedStudySubmissionBinding(Queue submissionStudyValidatorQueue, TopicExchange submissionExchange) {
+        return BindingBuilder.bind(submissionStudyValidatorQueue).to(submissionExchange)
+                .with(RoutingKeys.SUBMITTABLE_STUDY_UPDATED);
+    }
+
+    @Bean
+    Queue submissionAssayValidatorQueue() {
+        return new Queue(Queues.SUBMISSION_ASSAY_VALIDATOR, true);
+    }
+
+
+    /**
+     * Create a {@link Binding} between the submission exchange and validation queue using the routing key of created submissions.
+     *
+     * @param submissionAssayValidatorQueue {@link Queue} for validating assay submissions before submitting them
+     * @param submissionExchange {@link TopicExchange} for submissions
+     * @return a {@link Binding} between the submission exchange and validation queue using the routing key of created submissions.
+     */
+    @Bean
+    Binding validationForCreatedAssaySubmissionBinding(Queue submissionAssayValidatorQueue, TopicExchange submissionExchange) {
+        return BindingBuilder.bind(submissionAssayValidatorQueue).to(submissionExchange)
+                .with(RoutingKeys.SUBMITTABLE_ASSAY_CREATED);
+    }
+
+    /**
+     * Create a {@link Binding} between the submission exchange and validation queue using the routing key of updated submissions.
+     *
+     * @param submissionAssayValidatorQueue {@link Queue} for validating assay submissions before submitting them
+     * @param submissionExchange {@link TopicExchange} for submissions
+     * @return a {@link Binding} between the submission exchange and validation queue using the routing key of updated submissions.
+     */
+    @Bean
+    Binding validationForUpdatedAssaySubmissionBinding(Queue submissionAssayValidatorQueue, TopicExchange submissionExchange) {
+        return BindingBuilder.bind(submissionAssayValidatorQueue).to(submissionExchange)
+                .with(RoutingKeys.SUBMITTABLE_ASSAY_UPDATED);
     }
 
     /**
