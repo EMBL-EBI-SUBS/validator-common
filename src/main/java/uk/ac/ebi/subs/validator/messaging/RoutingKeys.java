@@ -36,8 +36,12 @@ public class RoutingKeys {
 
     public static final String EVENT_TAXON_SAMPLE_CREATED = "taxon.sample.created";
     public static final String EVENT_TAXON_SAMPLE_UPDATED = "taxon.sample.updated";
-    
-    public static final String EVENT_CORE_VALIDATION = "core.validation";
+
+    // core-validator routing keys
+    public static final String EVENT_CORE_ASSAY_VALIDATION = "core.assay.validation";
+    public static final String EVENT_CORE_ASSAYDATA_VALIDATION = "core.assaydata.validation";
+    public static final String EVENT_CORE_SAMPLE_VALIDATION = "core.sample.validation";
+    public static final String EVENT_CORE_STUDY_VALIDATION = "core.study.validation";
 
     public static final String EVENT_AE_SAMPLE_CREATED = "ae.sample.created";
     public static final String EVENT_AE_SAMPLE_UPDATED = "ae.sample.updated";
