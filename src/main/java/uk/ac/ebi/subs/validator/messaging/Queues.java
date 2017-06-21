@@ -15,8 +15,12 @@ public class Queues {
     public static final String TAXON_SAMPLE_VALIDATION = "taxon-sample-validation";
     
     public static final String BIOSAMPLES_SAMPLE_VALIDATION = "biosamples-sample-validation";
-    
+
+    // core-validator queues
+    public static final String CORE_ASSAY_VALIDATION = "core-assay-validation";
+    public static final String CORE_ASSAYDATA_VALIDATION = "core-assaydata-validation";
     public static final String CORE_SAMPLE_VALIDATION = "core-sample-validation";
+    public static final String CORE_STUDY_VALIDATION = "core-study-validation";
 
     public static final String AE_SAMPLE_VALIDATION = "ae-sample-validation";
 
