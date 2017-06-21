@@ -46,33 +46,9 @@ artifacts {
     archives sourceJar
 }
 
-//publishing {
-//    publications {
-//        mavenJava(MavenPublication) {
-//            from components.java
-//            Artifact sourceJar { classifier "sources" }
-//        }
-//    }
-//    repositories {
-//        maven {
-//            if (project.version.endsWith('-SNAPSHOT')) {
-//                url "https://oss.sonatype.org/content/repositories/snapshots"
-//            } else {
-//                url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
-//            }
-//            if (project.hasProperty('ossrhUsername') && project.hasProperty('ossrhPassword')) {
-//                credentials {
-//                    username ossrhUsername
-//                    password ossrhPassword
-//                }
-//            }
-//        }
-//    }
-//}
-
 uploadArchives {
     repositories {
-        MavenDeployer {
+        mavenDeployer {
 
             repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
                 if (project.hasProperty('ossrhUsername') && project.hasProperty('ossrhPassword')) {
