@@ -28,7 +28,7 @@ buildscript {
 }
 
 dependencies {
-    compile group: 'uk.ac.ebi.subs', name: 'subs-data-model', version: '1.0.0-SNAPSHOT'
+    compile group: 'uk.ac.ebi.subs', name: 'subs-data-model', version: '1.0.3-SNAPSHOT'
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.12'
 
@@ -43,7 +43,7 @@ task sourceJar(type: Jar) { from sourceSets.main.allJava }
 
 artifacts {
     archives jar
-    archives sourceJar
+    archives sourceJar { classifier "sources" }
 }
 
 uploadArchives {
