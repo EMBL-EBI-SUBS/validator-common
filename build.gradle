@@ -1,15 +1,17 @@
-version '1.0.1-SNAPSHOT'
+version '1.0.2-SNAPSHOT'
 
 apply plugin: 'java'
-apply plugin: 'maven'
 apply plugin: 'maven-publish'
+apply plugin: 'maven'
 apply plugin: 'org.springframework.boot'
 
 group 'uk.ac.ebi.subs.validator.common'
 
+
 sourceCompatibility = 1.8
 
 repositories {
+    mavenLocal()
     mavenCentral()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
 }
@@ -37,6 +39,17 @@ dependencies {
 
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
     testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
 }
 
 task sourceJar(type: Jar) { from sourceSets.main.allJava }
