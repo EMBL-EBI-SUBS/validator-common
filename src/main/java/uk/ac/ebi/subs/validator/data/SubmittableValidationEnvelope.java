@@ -7,6 +7,7 @@ import uk.ac.ebi.subs.data.submittable.BaseSubmittable;
  *
  * Created by karoly on 30/05/2017.
  */
+
 public class SubmittableValidationEnvelope<T extends BaseSubmittable> {
 
     private String submissionId;
