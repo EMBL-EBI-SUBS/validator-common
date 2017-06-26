@@ -5,7 +5,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'maven'
 apply plugin: 'org.springframework.boot'
 
-group 'uk.ac.ebi.subs.validator.common'
+group 'uk.ac.ebi.subs'
 
 
 sourceCompatibility = 1.8
