@@ -4,6 +4,7 @@ import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -17,7 +18,11 @@ import java.util.Map;
   */
 @ToString(callSuper = true)
 @Document
-@CompoundIndex(name = "submission_entity_id", def = "{'submissionId': 1, 'entityUuid': 1}")
+@CompoundIndexes({
+    @CompoundIndex(name = "submission_entity_id", def = "{'submissionId': 1, 'entityUuid': 1}"),
+    @CompoundIndex(name = "entity_uuid", def = "{'entityUuid': 1}")
+}
+)
 public class ValidationResult extends AbstractValidationResult implements Identifiable {
 
     @Id
