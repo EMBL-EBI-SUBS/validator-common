@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -24,6 +25,12 @@ import static org.junit.Assert.assertThat;
 @SpringBootTest(classes = ValidationResultRepository.class)
 @EnableAutoConfiguration
 public class ValidationResultRepositoryTest {
+
+    public static final String SUBMISSION_ID_1 = "123";
+    public static final String SUBMISSION_ID_2 = "456";
+    public static final String ENTITY_UUID_1 = "44566";
+    public static final String ENTITY_UUID_2 = "98876";
+    public static final String ENTITY_UUID_3 = "11223";
 
     @Autowired
     ValidationResultRepository validationResultRepository;
@@ -37,21 +44,28 @@ public class ValidationResultRepositoryTest {
         expectedResults.put(ValidationAuthor.Taxonomy, false);
         expectedResults.put(ValidationAuthor.Ena, false);
 
+        // First
         validationResult = new ValidationResult();
         validationResult.setUuid(UUID.randomUUID().toString());
         validationResult.setExpectedResults(expectedResults);
         validationResult.setVersion(1);
-        validationResult.setSubmissionId("123");
-        validationResult.setEntityUuid("44566");
+        validationResult.setSubmissionId(SUBMISSION_ID_1);
+        validationResult.setEntityUuid(ENTITY_UUID_1);
 
-        // First
         validationResultRepository.insert(validationResult);
 
-        validationResult.setUuid(UUID.randomUUID().toString());
-        validationResult.setSubmissionId("456");
-        validationResult.setEntityUuid("98876");
-
         // Second
+        validationResult.setUuid(UUID.randomUUID().toString());
+        validationResult.setSubmissionId(SUBMISSION_ID_2);
+        validationResult.setEntityUuid(ENTITY_UUID_2);
+
+        validationResultRepository.insert(validationResult);
+
+        // Third
+        validationResult.setUuid(UUID.randomUUID().toString());
+        validationResult.setSubmissionId(SUBMISSION_ID_1);
+        validationResult.setEntityUuid(ENTITY_UUID_3);
+
         validationResultRepository.insert(validationResult);
     }
 
@@ -69,6 +83,22 @@ public class ValidationResultRepositoryTest {
         System.out.println(validationResults);
 
         Assert.assertEquals(1, validationResults.size());
+    }
+
+    @Test
+    public void findByEntityUuidTest() {
+        ValidationResult actualValidationResult = validationResultRepository.findByEntityUuid(ENTITY_UUID_1);
+
+        assertThat(actualValidationResult.getSubmissionId(), is(equalTo(SUBMISSION_ID_1)));
+    }
+
+    @Test
+    public void findBySubmissionIdTest() {
+        List<ValidationResult> actualValidationResults = validationResultRepository.findBySubmissionId(SUBMISSION_ID_1);
+
+        assertThat(actualValidationResults.size(), is(equalTo(2)));
+        assertThat(actualValidationResults.get(0).getEntityUuid(), is(equalTo(ENTITY_UUID_3)));
+        assertThat(actualValidationResults.get(1).getEntityUuid(), is(equalTo(ENTITY_UUID_1)));
     }
 
     @After
