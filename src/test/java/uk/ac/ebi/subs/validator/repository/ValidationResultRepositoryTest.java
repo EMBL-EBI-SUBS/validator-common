@@ -1,9 +1,7 @@
 package uk.ac.ebi.subs.validator.repository;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -11,12 +9,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import uk.ac.ebi.subs.validator.data.ValidationAuthor;
 import uk.ac.ebi.subs.validator.data.ValidationResult;
+import uk.ac.ebi.subs.validator.exception.ValidationResultNotFoundException;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -26,16 +27,21 @@ import static org.junit.Assert.assertThat;
 @EnableAutoConfiguration
 public class ValidationResultRepositoryTest {
 
-    public static final String SUBMISSION_ID_1 = "123";
-    public static final String SUBMISSION_ID_2 = "456";
-    public static final String ENTITY_UUID_1 = "44566";
-    public static final String ENTITY_UUID_2 = "98876";
-    public static final String ENTITY_UUID_3 = "11223";
+    private static final String SUBMISSION_ID_1 = "123";
+    private static final String SUBMISSION_ID_2 = "456";
+    private static final String SUBMISSION_ID_INVALID = "invalid submission id";
+    private static final String ENTITY_UUID_1 = "44566";
+    private static final String ENTITY_UUID_2 = "98876";
+    private static final String ENTITY_UUID_3 = "11223";
+    private static final String ENTITY_UUID_INVALID = "invalid entity uuid";
 
     @Autowired
     ValidationResultRepository validationResultRepository;
 
     private ValidationResult validationResult;
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     @Before
     public void buildUp() {
@@ -86,19 +92,37 @@ public class ValidationResultRepositoryTest {
     }
 
     @Test
-    public void findByEntityUuidTest() {
-        ValidationResult actualValidationResult = validationResultRepository.findByEntityUuid(ENTITY_UUID_1);
+    public void findValidationResultByValidEntityUuidShouldReturnResult() {
+        ValidationResult actualValidationResult = validationResultRepository.findByEntityUuid(ENTITY_UUID_1).get();
 
         assertThat(actualValidationResult.getSubmissionId(), is(equalTo(SUBMISSION_ID_1)));
     }
 
     @Test
+    public void findValidationResultByInvalidEntityUuid() {
+        exception.expect(ValidationResultNotFoundException.class);
+        exception.expectMessage(containsString(ValidationResultNotFoundException.getMessage("entityUuid", ENTITY_UUID_INVALID)));
+        validationResultRepository.findByEntityUuid(ENTITY_UUID_INVALID).orElseThrow(
+                () -> new ValidationResultNotFoundException("entityUuid", ENTITY_UUID_INVALID)
+        );
+    }
+
+    @Test
     public void findBySubmissionIdTest() {
-        List<ValidationResult> actualValidationResults = validationResultRepository.findBySubmissionId(SUBMISSION_ID_1);
+        List<ValidationResult> actualValidationResults =
+                validationResultRepository.findBySubmissionId(SUBMISSION_ID_1).collect(Collectors.toList());
 
         assertThat(actualValidationResults.size(), is(equalTo(2)));
         assertThat(actualValidationResults.get(0).getEntityUuid(), is(equalTo(ENTITY_UUID_3)));
         assertThat(actualValidationResults.get(1).getEntityUuid(), is(equalTo(ENTITY_UUID_1)));
+    }
+
+    @Test
+    public void findValidationResultByInvalidSubmissionId() {
+        List<ValidationResult> actualEmptyValidationResult =
+                validationResultRepository.findBySubmissionId(SUBMISSION_ID_INVALID).collect(Collectors.toList());
+
+        assertThat(actualEmptyValidationResult.size(), is(equalTo(0)));
     }
 
     @After
