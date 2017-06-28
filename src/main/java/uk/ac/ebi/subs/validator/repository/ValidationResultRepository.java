@@ -11,4 +11,6 @@ import java.util.List;
 public interface ValidationResultRepository extends MongoRepository<ValidationResult, String> {
 
     List<ValidationResult> findBySubmissionIdAndEntityUuid(String submissionId, String entityUuid);
+    ValidationResult findByEntityUuid(String entityUuid);
+    List<ValidationResult> findBySubmissionId(String submissionId);
 }
