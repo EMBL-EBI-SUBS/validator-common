@@ -84,14 +84,6 @@ public class ValidationResultRepositoryTest {
     }
 
     @Test
-    public void findBySubmissionIdAndEntityUuidTest() {
-        ValidationResult validationResult = validationResultRepository.findBySubmissionIdAndEntityUuid(SUBMISSION_ID_1, ENTITY_UUID_1);
-
-        Assert.assertEquals(SUBMISSION_ID_1, validationResult.getSubmissionId());
-        Assert.assertEquals(ENTITY_UUID_1, validationResult.getEntityUuid());
-    }
-
-    @Test
     public void findValidationResultByValidEntityUuidShouldReturnResult() {
         ValidationResult actualValidationResult = validationResultRepository.findByEntityUuid(ENTITY_UUID_1);
 
