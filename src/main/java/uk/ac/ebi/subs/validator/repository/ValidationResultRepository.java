@@ -14,10 +14,6 @@ import uk.ac.ebi.subs.validator.data.ValidationResult;
 @RepositoryRestResource
 public interface ValidationResultRepository extends MongoRepository<ValidationResult, String> {
 
-    @RestResource(exported = true, path = "by-submissionIdAndEntityUuid", rel = "by-submissionIdAndEntityUuid")
-    ValidationResult findBySubmissionIdAndEntityUuid(@Param("submissionId") String submissionId,
-                                                     @Param("entityUuid") String entityUuid);
-
     @RestResource(exported = true, path = "by-entityUuid", rel = "by-entityUuid")
     ValidationResult findByEntityUuid(@Param("entityUuid") String entityUuid);
 
