@@ -23,4 +23,30 @@ public interface ValidationResultRepository extends MongoRepository<ValidationRe
 
     @RestResource(exported = true, path = "by-submission", rel = "by-submission")
     Page<ValidationResult> findBySubmissionId(@Param("submissionId") String submissionId, Pageable pageable);
+
+    //TODO karoly: need to add access control (when implementing AAP) to these methods
+    // exported as GET /validationresults/:id
+    @Override
+    @RestResource(exported = true)
+    ValidationResult findOne(String id);
+
+    // exported as GET /validationresults
+    @Override
+    @RestResource(exported = false)
+    Page<ValidationResult> findAll(Pageable pageable);
+
+    // controls PUT /validationresults and PATCH /validationresults/:id
+    @Override
+    @RestResource(exported = false)
+    <S extends ValidationResult> S save(S s);
+
+    // controls POST /validationresults
+    @Override
+    @RestResource(exported = false)
+    <S extends ValidationResult> S insert(S s);
+
+    // exported as DELETE /validationresults/:id
+    @Override
+    @RestResource(exported = false)
+    void delete(ValidationResult t);
 }
