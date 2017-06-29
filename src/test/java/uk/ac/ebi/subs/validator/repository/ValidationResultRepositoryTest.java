@@ -6,18 +6,18 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import uk.ac.ebi.subs.validator.data.ValidationAuthor;
 import uk.ac.ebi.subs.validator.data.ValidationResult;
-import uk.ac.ebi.subs.validator.exception.ValidationResultNotFoundException;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
-import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -85,44 +85,46 @@ public class ValidationResultRepositoryTest {
 
     @Test
     public void findBySubmissionIdAndEntityUuidTest() {
-        List<ValidationResult> validationResults = validationResultRepository.findBySubmissionIdAndEntityUuid("123", "44566");
-        System.out.println(validationResults);
+        ValidationResult validationResult = validationResultRepository.findBySubmissionIdAndEntityUuid(SUBMISSION_ID_1, ENTITY_UUID_1);
 
-        Assert.assertEquals(1, validationResults.size());
+        Assert.assertEquals(SUBMISSION_ID_1, validationResult.getSubmissionId());
+        Assert.assertEquals(ENTITY_UUID_1, validationResult.getEntityUuid());
     }
 
     @Test
     public void findValidationResultByValidEntityUuidShouldReturnResult() {
-        ValidationResult actualValidationResult = validationResultRepository.findByEntityUuid(ENTITY_UUID_1).get();
+        ValidationResult actualValidationResult = validationResultRepository.findByEntityUuid(ENTITY_UUID_1);
 
         assertThat(actualValidationResult.getSubmissionId(), is(equalTo(SUBMISSION_ID_1)));
     }
 
     @Test
     public void findValidationResultByInvalidEntityUuid() {
-        exception.expect(ValidationResultNotFoundException.class);
-        exception.expectMessage(containsString(ValidationResultNotFoundException.getMessage("entityUuid", ENTITY_UUID_INVALID)));
-        validationResultRepository.findByEntityUuid(ENTITY_UUID_INVALID).orElseThrow(
-                () -> new ValidationResultNotFoundException("entityUuid", ENTITY_UUID_INVALID)
-        );
+        ValidationResult actualValidationResult = validationResultRepository.findByEntityUuid(ENTITY_UUID_INVALID);
+
+        assertThat(actualValidationResult, nullValue());
     }
 
     @Test
     public void findBySubmissionIdTest() {
-        List<ValidationResult> actualValidationResults =
-                validationResultRepository.findBySubmissionId(SUBMISSION_ID_1).collect(Collectors.toList());
+        PageRequest pageRequest = new PageRequest(0, 10);
+        Page<ValidationResult> actualValidationResultsPaged =
+                validationResultRepository.findBySubmissionId(SUBMISSION_ID_1, pageRequest);
 
-        assertThat(actualValidationResults.size(), is(equalTo(2)));
+        assertThat(actualValidationResultsPaged.getTotalElements(), is(equalTo(2L)));
+
+        List<ValidationResult> actualValidationResults = actualValidationResultsPaged.getContent();
         assertThat(actualValidationResults.get(0).getEntityUuid(), is(equalTo(ENTITY_UUID_3)));
         assertThat(actualValidationResults.get(1).getEntityUuid(), is(equalTo(ENTITY_UUID_1)));
     }
 
     @Test
     public void findValidationResultByInvalidSubmissionId() {
-        List<ValidationResult> actualEmptyValidationResult =
-                validationResultRepository.findBySubmissionId(SUBMISSION_ID_INVALID).collect(Collectors.toList());
+        PageRequest pageRequest = new PageRequest(0, 10);
+        Page<ValidationResult> actualEmptyValidationResult =
+                validationResultRepository.findBySubmissionId(SUBMISSION_ID_INVALID, pageRequest);
 
-        assertThat(actualEmptyValidationResult.size(), is(equalTo(0)));
+        assertThat(actualEmptyValidationResult.getTotalElements(), is(equalTo(0L)));
     }
 
     @After
