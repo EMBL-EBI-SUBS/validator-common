@@ -25,14 +25,10 @@ public class RoutingKeys {
     public static final String EVENT_BIOSAMPLES_SAMPLE_CREATED = "biosamples.sample.created";
     public static final String EVENT_BIOSAMPLES_SAMPLE_UPDATED = "biosamples.sample.updated";
 
-    public static final String EVENT_ENA_STUDY_CREATED = "ena.study.created";
-    public static final String EVENT_ENA_STUDY_UPDATED = "ena.study.updated";
-    public static final String EVENT_ENA_SAMPLE_CREATED = "ena.sample.created";
-    public static final String EVENT_ENA_SAMPLE_UPDATED = "ena.sample.updated";
-    public static final String EVENT_ENA_ASSAY_CREATED = "ena.assay.created";
-    public static final String EVENT_ENA_ASSAY_UPDATED = "ena.assay.updated";
-    public static final String EVENT_ENA_ASSAYDATA_CREATED = "ena.assaydata.created";
-    public static final String EVENT_ENA_ASSAYDATA_UPDATED = "ena.assaydata.updated";
+    public static final String EVENT_ENA_STUDY_VALIDATION = "ena.study.validation";
+    public static final String EVENT_ENA_SAMPLE_VALIDATION = "ena.sample.validation";
+    public static final String EVENT_ENA_ASSAY_VALIDATION = "ena.assay.validation";
+    public static final String EVENT_ENA_ASSAYDATA_VALIDATION = "ena.assaydata.validation";
 
     public static final String EVENT_TAXON_SAMPLE_CREATED = "taxon.sample.created";
     public static final String EVENT_TAXON_SAMPLE_UPDATED = "taxon.sample.updated";

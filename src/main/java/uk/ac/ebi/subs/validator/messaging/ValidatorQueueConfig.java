@@ -91,48 +91,6 @@ public class ValidatorQueueConfig {
                 .with(RoutingKeys.EVENT_BIOSAMPLES_SAMPLE_UPDATED);
     }
 
-    //---- START OF ENA Validator messaging settings ----/
-
-    /**
-     * Instantiate a {@link Queue} for validate studies related to ENA.
-     *
-     * @return an instance of a {@link Queue} for validate studies related to ENA.
-     */
-    @Bean
-    Queue enaStudyQueue() {
-        return new Queue(Queues.ENA_STUDY_VALIDATION, true);
-    }
-
-    /**
-     * Create a {@link Binding} between the validation exchange and ENA study validation queue
-     * using the routing key of created studies related to ENA.
-     *
-     * @param enaStudyQueue {@link Queue} for validating ENA related studies
-     * @param validationExchange {@link TopicExchange} for validation
-     * @return a {@link Binding} between the validation exchange and ENA study validation queue
-     * using the routing key of created studies related to ENA.
-     */
-    @Bean
-    Binding validationForCreatedENAStudyBinding(Queue enaStudyQueue, TopicExchange validationExchange) {
-        return BindingBuilder.bind(enaStudyQueue).to(validationExchange)
-                .with(RoutingKeys.EVENT_ENA_STUDY_CREATED);
-    }
-
-    /**
-     * Create a {@link Binding} between the validation exchange and ENA study validation queue
-     * using the routing key of updated studies related to ENA.
-     *
-     * @param enaStudyQueue {@link Queue} for validating ENA related studies
-     * @param validationExchange {@link TopicExchange} for validation
-     * @return a {@link Binding} between the validation exchange and ENA study validation queue
-     * using the routing key of updated studies related to ENA.
-     */
-    @Bean
-    Binding validationForUpdatedENAStudyBinding(Queue enaStudyQueue, TopicExchange validationExchange) {
-        return BindingBuilder.bind(enaStudyQueue).to(validationExchange)
-                .with(RoutingKeys.EVENT_ENA_STUDY_UPDATED);
-    }
-
     @Bean
     Queue submissionStudyValidatorQueue() {
         return new Queue(Queues.SUBMISSION_STUDY_VALIDATOR, true);
@@ -170,7 +128,6 @@ public class ValidatorQueueConfig {
         return new Queue(Queues.SUBMISSION_ASSAY_VALIDATOR, true);
     }
 
-
     /**
      * Create a {@link Binding} between the submission exchange and validation queue using the routing key of created submissions.
      *
@@ -196,128 +153,6 @@ public class ValidatorQueueConfig {
         return BindingBuilder.bind(submissionAssayValidatorQueue).to(submissionExchange)
                 .with(RoutingKeys.SUBMITTABLE_ASSAY_UPDATED);
     }
-
-    /**
-     * Instantiate a {@link Queue} for validate samples related to ENA.
-     *
-     * @return an instance of a {@link Queue} for validate samples related to ENA.
-     */
-    @Bean
-    Queue enaSampleQueue() {
-        return new Queue(Queues.ENA_SAMPLE_VALIDATION, true);
-    }
-
-    /**
-     * Create a {@link Binding} between the validation exchange and ENA sample validation queue
-     * using the routing key of created samples related to ENA.
-     *
-     * @param enaSampleQueue {@link Queue} for validating ENA related samples
-     * @param validationExchange {@link TopicExchange} for validation
-     * @return a {@link Binding} between the validation exchange and ENA sample validation queue
-     * using the routing key of created samples related to ENA.
-     */
-    @Bean
-    Binding validationForCreatedENASampleBinding(Queue enaSampleQueue, TopicExchange validationExchange) {
-        return BindingBuilder.bind(enaSampleQueue).to(validationExchange)
-                .with(RoutingKeys.EVENT_ENA_SAMPLE_CREATED);
-    }
-
-    /**
-     * Create a {@link Binding} between the validation exchange and ENA sample validation queue
-     * using the routing key of updated samples related to ENA.
-     *
-     * @param enaSampleQueue {@link Queue} for validating ENA related samples
-     * @param validationExchange {@link TopicExchange} for validation
-     * @return a {@link Binding} between the validation exchange and ENA sample validation queue
-     * using the routing key of updated samples related to ENA.
-     */
-    @Bean
-    Binding validationForUpdatedENASampleBinding(Queue enaSampleQueue, TopicExchange validationExchange) {
-        return BindingBuilder.bind(enaSampleQueue).to(validationExchange)
-                .with(RoutingKeys.EVENT_ENA_SAMPLE_UPDATED);
-    }
-
-    /**
-     * Instantiate a {@link Queue} for validate assays related to ENA.
-     *
-     * @return an instance of a {@link Queue} for validate assays related to ENA.
-     */
-    @Bean
-    Queue enaAssayQueue() {
-        return new Queue(Queues.ENA_ASSAY_VALIDATION, true);
-    }
-
-    /**
-     * Create a {@link Binding} between the validation exchange and ENA assay validation queue
-     * using the routing key of created assays related to ENA.
-     *
-     * @param enaAssayQueue {@link Queue} for validating ENA related assays
-     * @param validationExchange {@link TopicExchange} for validation
-     * @return a {@link Binding} between the validation exchange and ENA assay validation queue
-     * using the routing key of created assays related to ENA.
-     */
-    @Bean
-    Binding validationForCreatedENAAssayBinding(Queue enaAssayQueue, TopicExchange validationExchange) {
-        return BindingBuilder.bind(enaAssayQueue).to(validationExchange)
-                .with(RoutingKeys.EVENT_ENA_ASSAY_CREATED);
-    }
-
-    /**
-     * Create a {@link Binding} between the validation exchange and ENA assay validation queue
-     * using the routing key of updated assays related to ENA.
-     *
-     * @param enaAssayQueue {@link Queue} for validating ENA related assays
-     * @param validationExchange {@link TopicExchange} for validation
-     * @return a {@link Binding} between the validation exchange and ENA assay validation queue
-     * using the routing key of updated assays related to ENA.
-     */
-    @Bean
-    Binding validationForUpdatedENAAssayBinding(Queue enaAssayQueue, TopicExchange validationExchange) {
-        return BindingBuilder.bind(enaAssayQueue).to(validationExchange)
-                .with(RoutingKeys.EVENT_ENA_ASSAY_UPDATED);
-    }
-
-    /**
-     * Instantiate a {@link Queue} for validate assay data related to ENA.
-     *
-     * @return an instance of a {@link Queue} for validate assay data related to ENA.
-     */
-    @Bean
-    Queue enaAssayDataQueue() {
-        return new Queue(Queues.ENA_ASSAYDATA_VALIDATION, true);
-    }
-
-    /**
-     * Create a {@link Binding} between the validation exchange and ENA assay data validation queue
-     * using the routing key of created assay data related to ENA.
-     *
-     * @param enaAssayDataQueue {@link Queue} for validating ENA related assay data
-     * @param validationExchange {@link TopicExchange} for validation
-     * @return a {@link Binding} between the validation exchange and ENA assay data validation queue
-     * using the routing key of created assay data related to ENA.
-     */
-    @Bean
-    Binding validationForCreatedENAAssayDataBinding(Queue enaAssayDataQueue, TopicExchange validationExchange) {
-        return BindingBuilder.bind(enaAssayDataQueue).to(validationExchange)
-                .with(RoutingKeys.EVENT_ENA_ASSAYDATA_CREATED);
-    }
-
-    /**
-     * Create a {@link Binding} between the validation exchange and ENA assay data validation queue
-     * using the routing key of updated assay data related to ENA.
-     *
-     * @param enaAssayDataQueue {@link Queue} for validating ENA related assay data
-     * @param validationExchange {@link TopicExchange} for validation
-     * @return a {@link Binding} between the validation exchange and ENA assay data validation queue
-     * using the routing key of updated assay data related to ENA.
-     */
-    @Bean
-    Binding validationForUpdatedENAAssayDataBinding(Queue enaAssayDataQueue, TopicExchange validationExchange) {
-        return BindingBuilder.bind(enaAssayDataQueue).to(validationExchange)
-                .with(RoutingKeys.EVENT_ENA_ASSAYDATA_UPDATED);
-    }
-
-    //---- END OF ENA Validator messaging settings ----/
 
     //---- START of Taxonomy Validator messaging settings ----/
     /**
