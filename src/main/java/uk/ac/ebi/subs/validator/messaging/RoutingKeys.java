@@ -33,8 +33,8 @@ public class RoutingKeys {
     public static final String EVENT_ENA_ASSAY_VALIDATION = "ena.assay.validation";
     public static final String EVENT_ENA_ASSAYDATA_VALIDATION = "ena.assaydata.validation";
 
-    public static final String EVENT_TAXON_SAMPLE_CREATED = "taxon.sample.created";
-    public static final String EVENT_TAXON_SAMPLE_UPDATED = "taxon.sample.updated";
+    // taxon-validator routing key
+    public static final String EVENT_TAXON_SAMPLE_VALIDATION = "taxon.sample.validation";
 
     // core-validator routing keys
     public static final String EVENT_CORE_ASSAY_VALIDATION = "core.assay.validation";

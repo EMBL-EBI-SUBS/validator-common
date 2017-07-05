@@ -55,50 +55,6 @@ public class ValidatorQueueConfig {
                 .with(RoutingKeys.EVENT_BIOSAMPLES_SAMPLE_UPDATED);
     }
 
-    //---- START of Taxonomy Validator messaging settings ----/
-    /**
-     * Instantiate a {@link Queue} to validate samples taxonomy entries.
-     *
-     * @return an instance of a {@link Queue} to validate samples taxonomy entries.
-     */
-    @Bean
-    Queue taxonSampleQueue() {
-        return new Queue(Queues.TAXON_SAMPLE_VALIDATION, true);
-    }
-
-    /**
-     * Create a {@link Binding} between the validation exchange and Taxonomy sample validation queue
-     * using the routing key of created samples.
-     *
-     * @param taxonSampleQueue to validate samples taxonomy entries.
-     * @param validationExchange {@link TopicExchange} for validation
-     * @return a {@link Binding}  between the validation exchange and Taxonomy sample validation queue
-     * using the routing key of created samples.
-     */
-    @Bean
-    Binding taxonValidationForCreatedSamples(Queue taxonSampleQueue, TopicExchange validationExchange) {
-        return BindingBuilder.bind(taxonSampleQueue())
-                .to(validationExchange)
-                .with(RoutingKeys.EVENT_TAXON_SAMPLE_CREATED);
-    }
-
-    /**
-     * Create a {@link Binding} between the validation exchange and Taxonomy sample validation queue
-     * using the routing key of updated samples.
-     *
-     * @param taxonSampleQueue to validate samples taxonomy entries.
-     * @param validationExchange {@link TopicExchange} for validation
-     * @return a {@link Binding}  between the validation exchange and Taxonomy sample validation queue
-     * using the routing key of updated samples.
-     */
-    @Bean
-    Binding taxonValidationForUpdatedSamples(Queue taxonSampleQueue, TopicExchange validationExchange) {
-        return BindingBuilder.bind(taxonSampleQueue())
-                .to(validationExchange)
-                .with(RoutingKeys.EVENT_TAXON_SAMPLE_UPDATED);
-    }
-    //---- END of Taxonomy Validator messaging settings ----/
-
     /**
      * Instantiate a {@link Queue} for validate samples related to Array Express.
      *
