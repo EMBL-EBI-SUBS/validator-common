@@ -22,6 +22,9 @@ public class RoutingKeys {
     public static final String SUBMITTABLE_ASSAY_CREATED = SUBMITTABLE_CREATED + ".assay";
     public static final String SUBMITTABLE_ASSAY_UPDATED = SUBMITTABLE_UPDATED + ".assay";
 
+    public static final String SUBMITTABLE_ASSAYDATA_CREATED = SUBMITTABLE_CREATED + ".assay";
+    public static final String SUBMITTABLE_ASSAYDATA_UPDATED = SUBMITTABLE_UPDATED + ".assay";
+
     public static final String EVENT_BIOSAMPLES_SAMPLE_CREATED = "biosamples.sample.created";
     public static final String EVENT_BIOSAMPLES_SAMPLE_UPDATED = "biosamples.sample.updated";
 
