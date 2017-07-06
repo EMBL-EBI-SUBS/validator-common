@@ -16,46 +16,6 @@ import org.springframework.context.annotation.Configuration;
 public class ValidatorQueueConfig {
 
     /**
-     * Instantiate a {@link Queue} for validate samples related to BioSamples.
-     *
-     * @return an instance of a {@link Queue} for validate samples related to BioSamples.
-     */
-    @Bean
-    Queue biosamplesSampleQueue() {
-        return new Queue(Queues.BIOSAMPLES_SAMPLE_VALIDATION, true);
-    }
-
-    /**
-     * Create a {@link Binding} between the validation exchange and BioSamples sample validation queue
-     * using the routing key of created samples related to BioSamples.
-     *
-     * @param biosamplesSampleQueue {@link Queue} for validating BioSamples related samples
-     * @param validationExchange {@link TopicExchange} for validation
-     * @return a {@link Binding} between the validation exchange and BioSamples sample validation queue
-     * using the routing key of created samples related to BioSamples.
-     */
-    @Bean
-    Binding validationForCreatedBiosamplesSampleBinding(Queue biosamplesSampleQueue, TopicExchange validationExchange) {
-        return BindingBuilder.bind(biosamplesSampleQueue).to(validationExchange)
-                .with(RoutingKeys.EVENT_BIOSAMPLES_SAMPLE_CREATED);
-    }
-
-    /**
-     * Create a {@link Binding} between the validation exchange and BioSamples sample validation queue
-     * using the routing key of updated samples related to BioSamples.
-     *
-     * @param biosamplesSampleQueue {@link Queue} for validating BioSamples related samples
-     * @param validationExchange {@link TopicExchange} for validation
-     * @return a {@link Binding} between the validation exchange and BioSamples sample validation queue
-     * using the routing key of updated samples related to BioSamples.
-     */
-    @Bean
-    Binding validationForUpdatedBiosamplesSampleBinding(Queue biosamplesSampleQueue, TopicExchange validationExchange) {
-        return BindingBuilder.bind(biosamplesSampleQueue).to(validationExchange)
-                .with(RoutingKeys.EVENT_BIOSAMPLES_SAMPLE_UPDATED);
-    }
-
-    /**
      * Instantiate a {@link Queue} for validate samples related to Array Express.
      *
      * @return an instance of a {@link Queue} for validate samples related to Array Express.

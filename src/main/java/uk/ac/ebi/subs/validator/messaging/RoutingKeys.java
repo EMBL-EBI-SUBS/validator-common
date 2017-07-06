@@ -25,8 +25,7 @@ public class RoutingKeys {
     public static final String SUBMITTABLE_ASSAYDATA_CREATED = SUBMITTABLE_CREATED + ".assay";
     public static final String SUBMITTABLE_ASSAYDATA_UPDATED = SUBMITTABLE_UPDATED + ".assay";
 
-    public static final String EVENT_BIOSAMPLES_SAMPLE_CREATED = "biosamples.sample.created";
-    public static final String EVENT_BIOSAMPLES_SAMPLE_UPDATED = "biosamples.sample.updated";
+    public static final String EVENT_BIOSAMPLES_SAMPLE_VALIDATION = "biosamples.sample.validation";
 
     public static final String EVENT_ENA_STUDY_VALIDATION = "ena.study.validation";
     public static final String EVENT_ENA_SAMPLE_VALIDATION = "ena.sample.validation";
