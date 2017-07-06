@@ -2,13 +2,11 @@ package uk.ac.ebi.subs.validator.data;
 
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,11 +30,7 @@ public class ValidationResult extends AbstractValidationResult implements Identi
     @Indexed
     private String submissionId;
 
-    @Transient
-    private List<ValidationAuthor> validationAuthors;
-
-    private List<SingleValidationResult> validationResults = new ArrayList<>();
-    private Map<ValidationAuthor, Boolean> expectedResults = new HashMap<>();
+    private Map<ValidationAuthor, List<SingleValidationResult>> expectedResults = new HashMap<>();
 
     @Override
     public String getUuid() {
@@ -66,27 +60,11 @@ public class ValidationResult extends AbstractValidationResult implements Identi
         this.submissionId = submissionId;
     }
 
-    public List<ValidationAuthor> getValidationAuthors() {
-        return validationAuthors;
-    }
-
-    public void setValidationAuthors(List<ValidationAuthor> validationAuthors) {
-        this.validationAuthors = validationAuthors;
-    }
-
-    public List<SingleValidationResult> getValidationResults() {
-        return validationResults;
-    }
-
-    public void setValidationResults(List<SingleValidationResult> validationResults) {
-        this.validationResults = validationResults;
-    }
-
-    public Map<ValidationAuthor, Boolean> getExpectedResults() {
+    public Map<ValidationAuthor, List<SingleValidationResult>> getExpectedResults() {
         return expectedResults;
     }
 
-    public void setExpectedResults(Map<ValidationAuthor, Boolean> expectedResults) {
+    public void setExpectedResults(Map<ValidationAuthor, List<SingleValidationResult>> expectedResults) {
         this.expectedResults = expectedResults;
     }
 }
