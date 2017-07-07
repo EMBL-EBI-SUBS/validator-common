@@ -3,6 +3,8 @@ package uk.ac.ebi.subs.validator.data;
 import uk.ac.ebi.subs.data.submittable.BaseSubmittable;
 
 /**
+ * This is a Data Transfer Object transferring data from the main submission application
+ * to the {@code validator-coordinator} service.
  * A container object holding the submission ID and the entity to validate.
  *
  * Created by karoly on 30/05/2017.
