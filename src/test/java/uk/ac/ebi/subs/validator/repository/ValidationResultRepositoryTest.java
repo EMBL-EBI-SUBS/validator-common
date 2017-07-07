@@ -9,9 +9,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import uk.ac.ebi.subs.validator.data.SingleValidationResult;
 import uk.ac.ebi.subs.validator.data.ValidationAuthor;
 import uk.ac.ebi.subs.validator.data.ValidationResult;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,10 +47,10 @@ public class ValidationResultRepositoryTest {
 
     @Before
     public void buildUp() {
-        Map<ValidationAuthor, Boolean> expectedResults = new HashMap<>();
-        expectedResults.put(ValidationAuthor.Biosamples, true);
-        expectedResults.put(ValidationAuthor.Taxonomy, false);
-        expectedResults.put(ValidationAuthor.Ena, false);
+        Map<ValidationAuthor, List<SingleValidationResult>> expectedResults = new HashMap<>();
+        expectedResults.put(ValidationAuthor.Biosamples, new ArrayList<>());
+        expectedResults.put(ValidationAuthor.Taxonomy, new ArrayList<>());
+        expectedResults.put(ValidationAuthor.Ena, new ArrayList<>());
 
         // First
         validationResult = new ValidationResult();
@@ -80,7 +82,7 @@ public class ValidationResultRepositoryTest {
         ValidationResult retrievedResult = validationResultRepository.findOne(validationResult.getUuid());
         System.out.println(retrievedResult);
 
-        assertThat(retrievedResult.getExpectedResults().get(ValidationAuthor.Biosamples), is(true));
+        assertThat(retrievedResult.getExpectedResults().get(ValidationAuthor.Biosamples), is(new ArrayList<>()));
     }
 
     @Test
