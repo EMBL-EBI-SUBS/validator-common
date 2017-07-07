@@ -12,13 +12,15 @@ import uk.ac.ebi.subs.data.submittable.BaseSubmittable;
 public class ValidationMessageEnvelope<T extends BaseSubmittable> {
 
     private String validationResultUUID;
+    private int validationResultVersion;
     private T entityToValidate;
 
     public ValidationMessageEnvelope() {
     }
 
-    public ValidationMessageEnvelope(String validationResultUUID, T entityToValidate) {
+    public ValidationMessageEnvelope(String validationResultUUID, int validationResultVersion, T entityToValidate) {
         this.validationResultUUID = validationResultUUID;
+        this.validationResultVersion = validationResultVersion;
         this.entityToValidate = entityToValidate;
     }
 
@@ -26,15 +28,11 @@ public class ValidationMessageEnvelope<T extends BaseSubmittable> {
         return validationResultUUID;
     }
 
-    public void setValidationResultUUID(String validationResultUUID) {
-        this.validationResultUUID = validationResultUUID;
+    public int getValidationResultVersion() {
+        return validationResultVersion;
     }
 
     public T getEntityToValidate() {
         return entityToValidate;
-    }
-
-    public void setEntityToValidate(T entityToValidate) {
-        this.entityToValidate = entityToValidate;
     }
 }

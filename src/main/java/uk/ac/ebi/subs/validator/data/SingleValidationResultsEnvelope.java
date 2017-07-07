@@ -10,7 +10,7 @@ import java.util.List;
 public class SingleValidationResultsEnvelope {
 
     private List<SingleValidationResult> singleValidationResults;
-    private String validationResultVersion;
+    private int validationResultVersion;
     private String validationResultUUID;
     private ValidationAuthor validationAuthor;
 
@@ -22,7 +22,7 @@ public class SingleValidationResultsEnvelope {
      * @param validationResultUUID the UUID of the {@link ValidationResult} the validation relates to
      * @param validationAuthor the author of the validation
      */
-    public SingleValidationResultsEnvelope(List<SingleValidationResult> singleValidationResults, String validationResultVersion,
+    public SingleValidationResultsEnvelope(List<SingleValidationResult> singleValidationResults, int validationResultVersion,
                                            String validationResultUUID, ValidationAuthor validationAuthor) {
         this.singleValidationResults = singleValidationResults;
         this.validationResultVersion = validationResultVersion;
@@ -34,7 +34,7 @@ public class SingleValidationResultsEnvelope {
         return singleValidationResults;
     }
 
-    public String getValidationResultVersion() {
+    public int getValidationResultVersion() {
         return validationResultVersion;
     }
 
