@@ -121,6 +121,25 @@ public class ValidationResultRepositoryTest {
         assertThat(actualEmptyValidationResult.getTotalElements(), is(equalTo(0L)));
     }
 
+    @Test
+    public void findAllBySubmissionIdTest() {
+        List<ValidationResult> actualValidationResults =
+                validationResultRepository.findAllBySubmissionId(SUBMISSION_ID_1);
+
+        assertThat(actualValidationResults.size(), is(equalTo(2)));
+
+        assertThat(actualValidationResults.get(0).getEntityUuid(), is(equalTo(ENTITY_UUID_3)));
+        assertThat(actualValidationResults.get(1).getEntityUuid(), is(equalTo(ENTITY_UUID_1)));
+    }
+
+    @Test
+    public void findAllValidationResultByInvalidSubmissionId() {
+        List<ValidationResult> actualEmptyValidationResults =
+                validationResultRepository.findAllBySubmissionId(SUBMISSION_ID_INVALID);
+
+        assertThat(actualEmptyValidationResults.size(), is(equalTo(0)));
+    }
+
     @After
     public void tearDown() {
         validationResultRepository.deleteAll();
