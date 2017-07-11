@@ -8,6 +8,8 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
 import uk.ac.ebi.subs.validator.data.ValidationResult;
 
+import java.util.List;
+
 /**
  * Mongo repository REST resource for {@code ValidationResult}.
  */
@@ -19,6 +21,9 @@ public interface ValidationResultRepository extends MongoRepository<ValidationRe
 
     @RestResource(exported = true, path = "by-submission", rel = "by-submission")
     Page<ValidationResult> findBySubmissionId(@Param("submissionId") String submissionId, Pageable pageable);
+
+    @RestResource(exported = true, path = "all-by-submission", rel = "all-by-submission")
+    List<ValidationResult> findAllBySubmissionId(@Param("submissionId") String submissionId);
 
     //TODO karoly: need to add access control (when implementing AAP) to these methods
     // exported as GET /validationresults/:id
