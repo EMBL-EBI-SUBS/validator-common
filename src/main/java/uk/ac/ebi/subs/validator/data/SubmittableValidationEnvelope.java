@@ -30,4 +30,12 @@ public class SubmittableValidationEnvelope<T extends BaseSubmittable> {
     public T getEntityToValidate() {
         return entityToValidate;
     }
+    
+    public void setSubmissionId(String submissionId) {
+        this.submissionId = submissionId;
+    }
+
+    public void setEntityToValidate(T entityToValidate) {
+        this.entityToValidate = entityToValidate;
+    }
 }
