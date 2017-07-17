@@ -56,46 +56,6 @@ public class ValidatorQueueConfig {
     }
 
     /**
-     * Instantiate a {@link Queue} for publish validation results.
-     *
-     * @return an instance of a {@link Queue} for publish validation results.
-     */
-    @Bean
-    Queue validationResultQueue() {
-        return new Queue(Queues.VALIDATION_RESULT, true);
-    }
-
-    /**
-     * Create a {@link Binding} between the validation exchange and validation result queue
-     * using the routing key of successful validation.
-     *
-     * @param validationResultQueue {@link Queue} for validation results
-     * @param validationExchange {@link TopicExchange} for validation
-     * @return a {@link Binding} between the validation exchange and validation result queue
-     * using the routing key of successful validation.
-     */
-    @Bean
-    Binding validationResultSuccessBinding(Queue validationResultQueue, TopicExchange validationExchange) {
-        return BindingBuilder.bind(validationResultQueue).to(validationExchange)
-                .with(RoutingKeys.EVENT_VALIDATION_SUCCESS);
-    }
-
-    /**
-     * Create a {@link Binding} between the validation exchange and validation result queue
-     * using the routing key of erred validation.
-     *
-     * @param validationResultQueue {@link Queue} for validation results
-     * @param validationExchange {@link TopicExchange} for validation
-     * @return a {@link Binding} between the validation exchange and validation result queue
-     * using the routing key of erred validation.
-     */
-    @Bean
-    Binding validationResultErrorBinding(Queue validationResultQueue, TopicExchange validationExchange) {
-        return BindingBuilder.bind(validationResultQueue).to(validationExchange)
-                .with(RoutingKeys.EVENT_VALIDATION_ERROR);
-    }
-
-    /**
      * Instantiate a {@link Queue} for publish events related to the validation result document.
      *
      * @return an instance of a {@link Queue} for publish events related to the validation result document.
