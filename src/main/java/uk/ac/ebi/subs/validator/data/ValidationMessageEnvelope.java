@@ -28,11 +28,23 @@ public class ValidationMessageEnvelope<T extends BaseSubmittable> {
         return validationResultUUID;
     }
 
+    public void setValidationResultUUID(String validationResultUUID) {
+        this.validationResultUUID = validationResultUUID;
+    }
+
     public int getValidationResultVersion() {
         return validationResultVersion;
     }
 
+    public void setValidationResultVersion(int validationResultVersion) {
+        this.validationResultVersion = validationResultVersion;
+    }
+
     public T getEntityToValidate() {
         return entityToValidate;
+    }
+
+    public void setEntityToValidate(T entityToValidate) {
+        this.entityToValidate = entityToValidate;
     }
 }
