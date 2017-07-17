@@ -14,6 +14,8 @@ public class SingleValidationResultsEnvelope {
     private String validationResultUUID;
     private ValidationAuthor validationAuthor;
 
+    public SingleValidationResultsEnvelope() {}
+
     /**
      * Constructor of the {@code SingleValidationResultsEnvelope} object.
      *
@@ -34,15 +36,31 @@ public class SingleValidationResultsEnvelope {
         return singleValidationResults;
     }
 
+    public void setSingleValidationResults(List<SingleValidationResult> singleValidationResults) {
+        this.singleValidationResults = singleValidationResults;
+    }
+
     public int getValidationResultVersion() {
         return validationResultVersion;
+    }
+
+    public void setValidationResultVersion(int validationResultVersion) {
+        this.validationResultVersion = validationResultVersion;
     }
 
     public String getValidationResultUUID() {
         return validationResultUUID;
     }
 
+    public void setValidationResultUUID(String validationResultUUID) {
+        this.validationResultUUID = validationResultUUID;
+    }
+
     public ValidationAuthor getValidationAuthor() {
         return validationAuthor;
+    }
+
+    public void setValidationAuthor(ValidationAuthor validationAuthor) {
+        this.validationAuthor = validationAuthor;
     }
 }

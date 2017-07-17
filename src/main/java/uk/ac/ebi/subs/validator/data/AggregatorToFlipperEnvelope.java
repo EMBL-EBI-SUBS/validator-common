@@ -9,6 +9,8 @@ public class AggregatorToFlipperEnvelope {
     private String validationResultUuid;
     private int validationResultVersion;
 
+    public AggregatorToFlipperEnvelope() {}
+
     /**
      * Constructor of the {@code AggregatorToFlipperEnvelope} object.
      *
