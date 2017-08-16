@@ -1,5 +1,5 @@
 group 'uk.ac.ebi.subs'
-version '1.16.1-SNAPSHOT'
+version '0.1.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'maven-publish'
@@ -28,7 +28,7 @@ buildscript {
 }
 
 dependencies {
-    compile group: 'uk.ac.ebi.subs', name: 'subs-data-model', version: '1.0.3-SNAPSHOT'
+    compile group: 'uk.ac.ebi.subs', name: 'subs-data-model', version: '0.1.0-SNAPSHOT'
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.12'
 
@@ -92,9 +92,9 @@ uploadArchives {
 
                 developers {
                     developer {
-                        id 'neilg'
-                        name 'Neil Goodgame'
-                        email 'neilg@ebi.ac.uk'
+                        id 'subs-internal'
+                        name 'EMBL-EBI-SUBS'
+                        email 'subs-internal@ebi.ac.uk'
                     }
                 }
             }
