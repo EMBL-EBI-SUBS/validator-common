@@ -103,12 +103,3 @@ uploadArchives {
 }
 
 bootRepackage.enabled = false
-
-task('externalCiTest', type: Test) {
-    useJUnit {
-        excludeCategories 'uk.ac.ebi.subs.validator.utils.MongoDBDependentTest'
-    }
-    testLogging {
-        exceptionFormat = 'full'
-    }
-}
