@@ -1,4 +1,6 @@
 # Validator Common
+[![Build Status](https://travis-ci.org/EMBL-EBI-SUBS/validator-common.svg?branch=master)](https://travis-ci.org/EMBL-EBI-SUBS/validator-common)
+
 Library containing the core entities and messaging configurations related to the USI validation service.
 
 ## License
