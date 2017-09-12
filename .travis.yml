@@ -5,22 +5,17 @@ addons:
   apt:
     sources:
     - mongodb-upstart
-    - sourceline: 'deb [arch=amd64] http://repo.mongodb.org/apt/ubuntu precise/mongodb-org/3.4 multiverse'
-        key_url: 'https://www.mongodb.org/static/pgp/server-3.4.asc'
+    - mongodb-3.4-precise
     packages:
-    - oracle-java8-installer
     - mongodb-org-server
     - mongodb-org-shell
-install: "./gradlew assemble"
 before_script:
 - sleep 25
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
-  apt: true
   directories:
-  - "$HOME/.m2"
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
 before_install:
@@ -28,6 +23,3 @@ before_install:
   -in gradle.properties.enc -out gradle.properties -d
 after_success:
 - test $TRAVIS_BRANCH = "master" && ./gradlew uploadArchives
-group: "stable"
-dist: "precise"
-os: "linux"
