@@ -52,5 +52,5 @@ public interface ValidationResultRepository extends MongoRepository<ValidationRe
     void delete(ValidationResult t);
 
     @RestResource(exported = false)
-    void deleteBySubmissionId(String submissionId);
+    void deleteAllBySubmissionId(String submissionId);
 }
