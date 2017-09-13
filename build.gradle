@@ -112,3 +112,11 @@ bootRepackage.enabled = false
 task wrapper(type: Wrapper) {
     gradleVersion = '3.3'
 }
+
+test {
+    runWithMongoDb = true
+}
+
+mongo {
+    mongoVersion = "3.4.3"
+}
