@@ -1,4 +1,4 @@
-package uk.ac.ebi.subs.validator.data;
+package uk.ac.ebi.subs.validator.data.structures;
 
 /**
  * Controlled list of validation authors.

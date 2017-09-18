@@ -6,6 +6,8 @@ import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import uk.ac.ebi.subs.validator.data.structures.GlobalValidationStatus;
+import uk.ac.ebi.subs.validator.data.structures.ValidationAuthor;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,18 +16,25 @@ import java.util.Map;
 /**
   * Validation result document to store all the validation results
   */
-@ToString(callSuper = true)
+@ToString
 @Document
 @CompoundIndexes({
     @CompoundIndex(name = "submission_entity_id", def = "{'submissionId': 1, 'entityUuid': 1}"),
     @CompoundIndex(name = "entity_uuid", def = "{'entityUuid': 1}")
 }
 )
-public class ValidationResult extends AbstractValidationResult {
+public class ValidationResult {
 
     @Id
     private String uuid;
+
     private int version;
+
+    private GlobalValidationStatus validationStatus = GlobalValidationStatus.Pending;
+
+    private String message;
+
+    private String entityUuid;
 
     @Indexed
     private String submissionId;
@@ -46,6 +55,30 @@ public class ValidationResult extends AbstractValidationResult {
 
     public void setVersion(int version) {
         this.version = version;
+    }
+
+    public GlobalValidationStatus getValidationStatus() {
+        return validationStatus;
+    }
+
+    public void setValidationStatus(GlobalValidationStatus validationStatus) {
+        this.validationStatus = validationStatus;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getEntityUuid() {
+        return entityUuid;
+    }
+
+    public void setEntityUuid(String entityUuid) {
+        this.entityUuid = entityUuid;
     }
 
     public String getSubmissionId() {
