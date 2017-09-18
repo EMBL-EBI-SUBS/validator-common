@@ -10,8 +10,6 @@ import uk.ac.ebi.subs.validator.data.structures.ValidationAuthor;
 @ToString
 public class SingleValidationResult {
 
-    private String validationResultUUID;
-
     private ValidationAuthor validationAuthor;
 
     private SingleValidationResultStatus validationStatus = SingleValidationResultStatus.Pending;
@@ -33,13 +31,5 @@ public class SingleValidationResult {
 
     public void setValidationAuthor(ValidationAuthor validationAuthor) {
         this.validationAuthor = validationAuthor;
-    }
-
-    public String getValidationResultUUID() {
-        return validationResultUUID;
-    }
-
-    public void setValidationResultUUID(String validationResultUUID) {
-        this.validationResultUUID = validationResultUUID;
     }
 }
