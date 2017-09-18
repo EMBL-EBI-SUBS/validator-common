@@ -6,10 +6,8 @@ import lombok.ToString;
   * Validation entity result document to store an entity validation result for a specific rule set
   */
 @ToString(callSuper = true)
-public class SingleValidationResult extends AbstractValidationResult implements Identifiable {
+public class SingleValidationResult extends AbstractValidationResult {
 
-    private int version;
-    private String uuid;
     private String validationResultUUID;
 
     private ValidationAuthor validationAuthor;
@@ -21,26 +19,6 @@ public class SingleValidationResult extends AbstractValidationResult implements 
         this.validationAuthor = validationAuthor;
         this.setEntityUuid(entityUuid);
         this.setValidationStatus(ValidationStatus.Pending);
-    }
-
-    @Override
-    public int getVersion() {
-        return version;
-    }
-
-    @Override
-    public void setVersion(int version) {
-        this.version = version;
-    }
-
-    @Override
-    public String getUuid() {
-        return uuid;
-    }
-
-    @Override
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
     }
 
     public ValidationAuthor getValidationAuthor() {

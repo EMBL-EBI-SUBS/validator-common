@@ -21,7 +21,7 @@ import java.util.Map;
     @CompoundIndex(name = "entity_uuid", def = "{'entityUuid': 1}")
 }
 )
-public class ValidationResult extends AbstractValidationResult implements Identifiable {
+public class ValidationResult extends AbstractValidationResult {
 
     @Id
     private String uuid;
@@ -32,22 +32,18 @@ public class ValidationResult extends AbstractValidationResult implements Identi
 
     private Map<ValidationAuthor, List<SingleValidationResult>> expectedResults = new HashMap<>();
 
-    @Override
     public String getUuid() {
         return uuid;
     }
 
-    @Override
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
 
-    @Override
     public int getVersion() {
         return version;
     }
 
-    @Override
     public void setVersion(int version) {
         this.version = version;
     }
