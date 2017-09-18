@@ -32,4 +32,28 @@ public class SingleValidationResult {
     public void setValidationAuthor(ValidationAuthor validationAuthor) {
         this.validationAuthor = validationAuthor;
     }
+
+    public SingleValidationResultStatus getValidationStatus() {
+        return validationStatus;
+    }
+
+    public void setValidationStatus(SingleValidationResultStatus validationStatus) {
+        this.validationStatus = validationStatus;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getEntityUuid() {
+        return entityUuid;
+    }
+
+    public void setEntityUuid(String entityUuid) {
+        this.entityUuid = entityUuid;
+    }
 }
