@@ -1,24 +1,18 @@
-package uk.ac.ebi.subs.validator.data;
+package uk.ac.ebi.subs.validator.data.structures;
 
 /**
- * Controlled vocabulary for validation status
+ * Controlled vocabulary for single validation result status
  *
  * <li>{@link #Pending}</li>
  * <li>{@link #Pass}</li>
  * <li>{@link #Error}</li>
  * <li>{@link #Warning}</li>
- * <li>{@link #Complete}</li>
  */
-public enum ValidationStatus {
+public enum SingleValidationResultStatus {
     /**
      * Waiting for validation result
      */
     Pending,
-    /**
-     * All validation results are accounted for,
-     * to be used only on {@link ValidationResult}
-     */
-    Complete,
     /**
      * We will accept this
      */

@@ -1,46 +1,28 @@
 package uk.ac.ebi.subs.validator.data;
 
 import lombok.ToString;
+import uk.ac.ebi.subs.validator.data.structures.SingleValidationResultStatus;
+import uk.ac.ebi.subs.validator.data.structures.ValidationAuthor;
 
 /**
   * Validation entity result document to store an entity validation result for a specific rule set
   */
-@ToString(callSuper = true)
-public class SingleValidationResult extends AbstractValidationResult implements Identifiable {
-
-    private int version;
-    private String uuid;
-    private String validationResultUUID;
+@ToString
+public class SingleValidationResult {
 
     private ValidationAuthor validationAuthor;
 
-    public SingleValidationResult() {
-    }
+    private SingleValidationResultStatus validationStatus = SingleValidationResultStatus.Pending;
+
+    private String message;
+
+    private String entityUuid;
+
+    public SingleValidationResult() {}
 
     public SingleValidationResult(ValidationAuthor validationAuthor, String entityUuid) {
         this.validationAuthor = validationAuthor;
-        this.setEntityUuid(entityUuid);
-        this.setValidationStatus(ValidationStatus.Pending);
-    }
-
-    @Override
-    public int getVersion() {
-        return version;
-    }
-
-    @Override
-    public void setVersion(int version) {
-        this.version = version;
-    }
-
-    @Override
-    public String getUuid() {
-        return uuid;
-    }
-
-    @Override
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+        this.entityUuid = entityUuid;
     }
 
     public ValidationAuthor getValidationAuthor() {
@@ -51,11 +33,27 @@ public class SingleValidationResult extends AbstractValidationResult implements 
         this.validationAuthor = validationAuthor;
     }
 
-    public String getValidationResultUUID() {
-        return validationResultUUID;
+    public SingleValidationResultStatus getValidationStatus() {
+        return validationStatus;
     }
 
-    public void setValidationResultUUID(String validationResultUUID) {
-        this.validationResultUUID = validationResultUUID;
+    public void setValidationStatus(SingleValidationResultStatus validationStatus) {
+        this.validationStatus = validationStatus;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getEntityUuid() {
+        return entityUuid;
+    }
+
+    public void setEntityUuid(String entityUuid) {
+        this.entityUuid = entityUuid;
     }
 }

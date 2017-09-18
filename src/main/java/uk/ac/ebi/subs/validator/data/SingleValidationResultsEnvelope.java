@@ -1,5 +1,7 @@
 package uk.ac.ebi.subs.validator.data;
 
+import uk.ac.ebi.subs.validator.data.structures.ValidationAuthor;
+
 import java.util.List;
 
 /**
