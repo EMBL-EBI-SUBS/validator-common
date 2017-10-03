@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Mongo repository REST resource for {@code ValidationResult}.
  */
-@RepositoryRestResource
+@RepositoryRestResource(excerptProjection = ValidationResultStatus.class)
 public interface ValidationResultRepository extends MongoRepository<ValidationResult, String> {
 
     @RestResource(exported = true, path = "by-entity", rel = "by-entity")
