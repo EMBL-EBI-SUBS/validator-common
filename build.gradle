@@ -12,7 +12,7 @@ plugins {
 }
 
 group 'uk.ac.ebi.subs'
-version '0.6.0-SNAPSHOT'
+version '0.7.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'maven-publish'
@@ -33,12 +33,13 @@ dependencies {
 }
 
 dependencies {
-    compile group: 'uk.ac.ebi.subs', name: 'subs-data-model', version: '0.1.0-SNAPSHOT'
+    compile group: 'uk.ac.ebi.subs', name: 'subs-data-model', version: '0.3.0-SNAPSHOT'
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.12'
 
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-amqp'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-rest'
 
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
     testCompile group: 'junit', name: 'junit', version: '4.12'
