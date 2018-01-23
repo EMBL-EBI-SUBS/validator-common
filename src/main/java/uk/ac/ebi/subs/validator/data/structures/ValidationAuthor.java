@@ -7,5 +7,10 @@ public enum ValidationAuthor {
     Core,
     Taxonomy,
     Ena, // FIXME - This may need further details like checklist
-    Biosamples
+    Eva,
+    Biosamples,
+    BioStudies,
+    ArrayExpress,
+    Metabolights,
+    Pride
 }
