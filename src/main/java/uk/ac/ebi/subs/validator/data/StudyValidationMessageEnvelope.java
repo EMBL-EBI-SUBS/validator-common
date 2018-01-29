@@ -1,5 +1,6 @@
 package uk.ac.ebi.subs.validator.data;
 
+import uk.ac.ebi.subs.data.submittable.Project;
 import uk.ac.ebi.subs.data.submittable.Study;
 
 /**
@@ -10,5 +11,13 @@ import uk.ac.ebi.subs.data.submittable.Study;
  * Created by karoly on 06/10/2017.
  */
 public class StudyValidationMessageEnvelope extends ValidationMessageEnvelope<Study> {
+    private Project project;
 
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
 }

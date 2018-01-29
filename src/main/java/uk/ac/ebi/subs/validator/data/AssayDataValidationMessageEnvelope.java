@@ -1,5 +1,6 @@
 package uk.ac.ebi.subs.validator.data;
 
+import uk.ac.ebi.subs.data.submittable.Assay;
 import uk.ac.ebi.subs.data.submittable.AssayData;
 
 /**
@@ -10,5 +11,13 @@ import uk.ac.ebi.subs.data.submittable.AssayData;
  * Created by karoly on 06/10/2017.
  */
 public class AssayDataValidationMessageEnvelope extends ValidationMessageEnvelope<AssayData> {
+    private Assay assay;
 
+    public Assay getAssay() {
+        return assay;
+    }
+
+    public void setAssay(Assay assay) {
+        this.assay = assay;
+    }
 }
