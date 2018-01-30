@@ -11,6 +11,14 @@ import uk.ac.ebi.subs.data.submittable.AssayData;
  * Created by karoly on 06/10/2017.
  */
 public class AssayDataValidationMessageEnvelope extends ValidationMessageEnvelope<AssayData> {
+
+    public AssayDataValidationMessageEnvelope(String validationResultUUID, int validationResultVersion, AssayData entityToValidate) {
+        super(validationResultUUID, validationResultVersion, entityToValidate);
+    }
+
+    public AssayDataValidationMessageEnvelope() {
+    }
+
     private Assay assay;
 
     public Assay getAssay() {

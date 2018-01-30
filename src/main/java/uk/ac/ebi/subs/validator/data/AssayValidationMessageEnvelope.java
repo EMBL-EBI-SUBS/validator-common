@@ -18,6 +18,13 @@ public class AssayValidationMessageEnvelope extends ValidationMessageEnvelope<As
     private Study study;
     private List<Sample> sampleList = new ArrayList();
 
+    public AssayValidationMessageEnvelope(String validationResultUUID, int validationResultVersion, Assay entityToValidate) {
+        super(validationResultUUID, validationResultVersion, entityToValidate);
+    }
+
+    public AssayValidationMessageEnvelope() {
+    }
+
     public Study getStudy() {
         return study;
     }

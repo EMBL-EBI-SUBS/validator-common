@@ -11,6 +11,14 @@ import uk.ac.ebi.subs.data.submittable.Study;
  * Created by karoly on 06/10/2017.
  */
 public class StudyValidationMessageEnvelope extends ValidationMessageEnvelope<Study> {
+
+    public StudyValidationMessageEnvelope(String validationResultUUID, int validationResultVersion, Study entityToValidate) {
+        super(validationResultUUID, validationResultVersion, entityToValidate);
+    }
+
+    public StudyValidationMessageEnvelope() {
+    }
+
     private Project project;
 
     public Project getProject() {

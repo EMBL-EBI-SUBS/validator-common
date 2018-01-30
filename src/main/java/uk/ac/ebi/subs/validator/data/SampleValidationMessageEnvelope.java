@@ -10,5 +10,10 @@ import uk.ac.ebi.subs.data.submittable.Sample;
  * Created by karoly on 06/10/2017.
  */
 public class SampleValidationMessageEnvelope extends ValidationMessageEnvelope<Sample> {
+    public SampleValidationMessageEnvelope() {
+    }
 
+    public SampleValidationMessageEnvelope(String validationResultUUID, int validationResultVersion, Sample entityToValidate) {
+        super(validationResultUUID, validationResultVersion, entityToValidate);
+    }
 }
