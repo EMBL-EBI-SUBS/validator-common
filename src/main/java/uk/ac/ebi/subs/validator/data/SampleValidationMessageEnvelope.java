@@ -13,7 +13,10 @@ public class SampleValidationMessageEnvelope extends ValidationMessageEnvelope<S
     public SampleValidationMessageEnvelope() {
     }
 
-    public SampleValidationMessageEnvelope(String validationResultUUID, int validationResultVersion, Sample entityToValidate) {
-        super(validationResultUUID, validationResultVersion, entityToValidate);
+    public SampleValidationMessageEnvelope(String validationResultUUID,
+                                           int validationResultVersion,
+                                           Sample entityToValidate,
+                                           String submissionId) {
+        super(validationResultUUID, validationResultVersion, entityToValidate, submissionId);
     }
 }
