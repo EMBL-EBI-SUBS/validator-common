@@ -14,6 +14,7 @@ public class ValidationMessageEnvelope<T extends BaseSubmittable> {
     private String validationResultUUID;
     private int validationResultVersion;
     private T entityToValidate;
+    private String submissionId;
 
     public ValidationMessageEnvelope() {
     }
@@ -22,6 +23,13 @@ public class ValidationMessageEnvelope<T extends BaseSubmittable> {
         this.validationResultUUID = validationResultUUID;
         this.validationResultVersion = validationResultVersion;
         this.entityToValidate = entityToValidate;
+    }
+
+    public ValidationMessageEnvelope(String validationResultUUID, int validationResultVersion, T entityToValidate, String submissionId) {
+        this.validationResultUUID = validationResultUUID;
+        this.validationResultVersion = validationResultVersion;
+        this.entityToValidate = entityToValidate;
+        this.submissionId = submissionId;
     }
 
     public String getValidationResultUUID() {
@@ -46,5 +54,13 @@ public class ValidationMessageEnvelope<T extends BaseSubmittable> {
 
     public void setEntityToValidate(T entityToValidate) {
         this.entityToValidate = entityToValidate;
+    }
+
+    public String getSubmissionId() {
+        return submissionId;
+    }
+
+    public void setSubmissionId(String submissionId) {
+        this.submissionId = submissionId;
     }
 }
