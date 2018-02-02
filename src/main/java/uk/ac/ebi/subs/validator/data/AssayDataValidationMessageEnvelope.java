@@ -1,5 +1,6 @@
 package uk.ac.ebi.subs.validator.data;
 
+import uk.ac.ebi.subs.data.submittable.Sample;
 import uk.ac.ebi.subs.validator.model.Submittable;
 
 import uk.ac.ebi.subs.data.submittable.Assay;
@@ -25,6 +26,7 @@ public class AssayDataValidationMessageEnvelope extends ValidationMessageEnvelop
     }
 
     private Submittable<Assay> assay;
+    private Submittable<Sample> sample;
 
     public Submittable<Assay> getAssay() {
         return assay;
@@ -32,5 +34,13 @@ public class AssayDataValidationMessageEnvelope extends ValidationMessageEnvelop
 
     public void setAssay(Submittable<Assay> assay) {
         this.assay = assay;
+    }
+
+    public Submittable<Sample> getSample() {
+        return sample;
+    }
+
+    public void setSample(Submittable<Sample> sample) {
+        this.sample = sample;
     }
 }
