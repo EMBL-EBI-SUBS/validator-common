@@ -2,6 +2,7 @@ package uk.ac.ebi.subs.validator.data;
 
 import uk.ac.ebi.subs.data.submittable.Project;
 import uk.ac.ebi.subs.data.submittable.Study;
+import uk.ac.ebi.subs.validator.model.Submittable;
 
 /**
  * This is a Data Transfer Object transferring {@link Study} data from the {@code validator-coordinator} service
@@ -12,20 +13,23 @@ import uk.ac.ebi.subs.data.submittable.Study;
  */
 public class StudyValidationMessageEnvelope extends ValidationMessageEnvelope<Study> {
 
-    public StudyValidationMessageEnvelope(String validationResultUUID, int validationResultVersion, Study entityToValidate) {
-        super(validationResultUUID, validationResultVersion, entityToValidate);
+    public StudyValidationMessageEnvelope(String validationResultUUID,
+                                          int validationResultVersion,
+                                          Study entityToValidate,
+                                          String submissionId) {
+        super(validationResultUUID, validationResultVersion, entityToValidate,submissionId);
     }
 
     public StudyValidationMessageEnvelope() {
     }
 
-    private Project project;
+    private Submittable<Project> project;
 
-    public Project getProject() {
+    public Submittable<Project> getProject() {
         return project;
     }
 
-    public void setProject(Project project) {
+    public void setProject(Submittable<Project> project) {
         this.project = project;
     }
 }

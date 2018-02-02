@@ -1,5 +1,8 @@
 package uk.ac.ebi.subs.validator.data;
 
+import uk.ac.ebi.subs.data.submittable.Sample;
+import uk.ac.ebi.subs.validator.model.Submittable;
+
 import uk.ac.ebi.subs.data.submittable.Assay;
 import uk.ac.ebi.subs.data.submittable.AssayData;
 
@@ -12,20 +15,32 @@ import uk.ac.ebi.subs.data.submittable.AssayData;
  */
 public class AssayDataValidationMessageEnvelope extends ValidationMessageEnvelope<AssayData> {
 
-    public AssayDataValidationMessageEnvelope(String validationResultUUID, int validationResultVersion, AssayData entityToValidate) {
-        super(validationResultUUID, validationResultVersion, entityToValidate);
+    public AssayDataValidationMessageEnvelope(String validationResultUUID,
+                                              int validationResultVersion,
+                                              AssayData entityToValidate,
+                                              String submissionId) {
+        super(validationResultUUID, validationResultVersion, entityToValidate,submissionId);
     }
 
     public AssayDataValidationMessageEnvelope() {
     }
 
-    private Assay assay;
+    private Submittable<Assay> assay;
+    private Submittable<Sample> sample;
 
-    public Assay getAssay() {
+    public Submittable<Assay> getAssay() {
         return assay;
     }
 
-    public void setAssay(Assay assay) {
+    public void setAssay(Submittable<Assay> assay) {
         this.assay = assay;
+    }
+
+    public Submittable<Sample> getSample() {
+        return sample;
+    }
+
+    public void setSample(Submittable<Sample> sample) {
+        this.sample = sample;
     }
 }
