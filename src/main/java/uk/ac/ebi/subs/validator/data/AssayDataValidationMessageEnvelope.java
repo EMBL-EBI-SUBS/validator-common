@@ -48,9 +48,8 @@ public class AssayDataValidationMessageEnvelope extends ValidationMessageEnvelop
 
     @Override
     public Stream<Submittable> allSubmissionItemsStream() {
-        final Stream<Submittable> submittableStream = super.allSubmissionItemsStream();
         return Stream.of(
-                submittableStream,
+                super.allSubmissionItemsStream(),
                 Stream.of(this.assay),
                 Stream.of(this.sample)
         ).flatMap(i -> i);

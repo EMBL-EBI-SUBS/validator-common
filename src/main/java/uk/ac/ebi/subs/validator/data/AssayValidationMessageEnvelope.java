@@ -50,9 +50,8 @@ public class AssayValidationMessageEnvelope extends ValidationMessageEnvelope<As
 
     @Override
     public Stream<uk.ac.ebi.subs.validator.model.Submittable> allSubmissionItemsStream() {
-        final Stream<Submittable> submittableStream = super.allSubmissionItemsStream();
         return Stream.of(
-                submittableStream,
+                super.allSubmissionItemsStream(),
                 Stream.of(this.study),
                 sampleList.stream()
         ).flatMap(i -> i);

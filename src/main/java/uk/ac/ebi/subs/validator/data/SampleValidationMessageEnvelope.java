@@ -39,9 +39,8 @@ public class SampleValidationMessageEnvelope extends ValidationMessageEnvelope<S
 
     @Override
     public Stream<Submittable> allSubmissionItemsStream() {
-        final Stream<Submittable> submittableStream = super.allSubmissionItemsStream();
         return Stream.of(
-                submittableStream,
+                super.allSubmissionItemsStream(),
                 sampleList.stream()
         ).flatMap(i -> i);
     }
