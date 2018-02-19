@@ -1,6 +1,13 @@
 package uk.ac.ebi.subs.validator.data;
 
 import uk.ac.ebi.subs.data.submittable.BaseSubmittable;
+import uk.ac.ebi.subs.data.submittable.Submittable;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * This is a Data Transfer Object transferring data from the {@code validator-coordinator} service
@@ -62,5 +69,14 @@ public class ValidationMessageEnvelope<T extends BaseSubmittable> {
 
     public void setSubmissionId(String submissionId) {
         this.submissionId = submissionId;
+    }
+
+    public Stream<uk.ac.ebi.subs.validator.model.Submittable> allSubmissionItemsStream() {
+        uk.ac.ebi.subs.validator.model.Submittable submittable = new uk.ac.ebi.subs.validator.model.Submittable<T>(entityToValidate,submissionId);
+        return Collections.singletonList(submittable).stream();
+    }
+
+    public Stream<Submittable> allSubmissionItemsStreamInSubmission() {
+        return allSubmissionItemsStream().filter(s -> submissionId.equals(s.getSubmissionId())).map(s -> s.getBaseSubmittable());
     }
 }
