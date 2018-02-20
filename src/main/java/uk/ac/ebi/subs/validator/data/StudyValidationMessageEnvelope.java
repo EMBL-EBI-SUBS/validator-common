@@ -4,6 +4,8 @@ import uk.ac.ebi.subs.data.submittable.Project;
 import uk.ac.ebi.subs.data.submittable.Study;
 import uk.ac.ebi.subs.validator.model.Submittable;
 
+import java.util.stream.Stream;
+
 /**
  * This is a Data Transfer Object transferring {@link Study} data from the {@code validator-coordinator} service
  * to a specific {@code Validator}.
@@ -31,5 +33,14 @@ public class StudyValidationMessageEnvelope extends ValidationMessageEnvelope<St
 
     public void setProject(Submittable<Project> project) {
         this.project = project;
+    }
+
+    @Override
+    public Stream<Submittable> allSubmissionItemsStream() {
+        final Stream<Submittable> submittableStream = super.allSubmissionItemsStream();
+        return Stream.of(
+                submittableStream,
+                Stream.of(this.project)
+        ).flatMap(i -> i);
     }
 }

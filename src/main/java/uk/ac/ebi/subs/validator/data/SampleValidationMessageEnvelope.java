@@ -5,6 +5,7 @@ import uk.ac.ebi.subs.validator.model.Submittable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * This is a Data Transfer Object transferring {@link Sample} data from the {@code validator-coordinator} service
@@ -34,5 +35,13 @@ public class SampleValidationMessageEnvelope extends ValidationMessageEnvelope<S
 
     public void setSampleList(List<Submittable<Sample>> sampleList) {
         this.sampleList = sampleList;
+    }
+
+    @Override
+    public Stream<Submittable> allSubmissionItemsStream() {
+        return Stream.of(
+                super.allSubmissionItemsStream(),
+                sampleList.stream()
+        ).flatMap(i -> i);
     }
 }

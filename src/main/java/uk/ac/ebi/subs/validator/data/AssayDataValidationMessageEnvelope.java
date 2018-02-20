@@ -6,6 +6,8 @@ import uk.ac.ebi.subs.validator.model.Submittable;
 import uk.ac.ebi.subs.data.submittable.Assay;
 import uk.ac.ebi.subs.data.submittable.AssayData;
 
+import java.util.stream.Stream;
+
 /**
  * This is a Data Transfer Object transferring {@link AssayData} data from the {@code validator-coordinator} service
  * to a specific {@code Validator}.
@@ -42,5 +44,14 @@ public class AssayDataValidationMessageEnvelope extends ValidationMessageEnvelop
 
     public void setSample(Submittable<Sample> sample) {
         this.sample = sample;
+    }
+
+    @Override
+    public Stream<Submittable> allSubmissionItemsStream() {
+        return Stream.of(
+                super.allSubmissionItemsStream(),
+                Stream.of(this.assay),
+                Stream.of(this.sample)
+        ).flatMap(i -> i);
     }
 }
