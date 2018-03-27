@@ -11,4 +11,13 @@ import uk.ac.ebi.subs.data.submittable.Project;
  */
 public class ProjectValidationMessageEnvelope extends ValidationMessageEnvelope<Project> {
 
+    public ProjectValidationMessageEnvelope(String validationResultUUID,
+                                            int validationResultVersion,
+                                            Project entityToValidate,
+                                            String submissionId) {
+        super(validationResultUUID, validationResultVersion, entityToValidate,submissionId);
+    }
+
+    public ProjectValidationMessageEnvelope() {
+    }
 }
