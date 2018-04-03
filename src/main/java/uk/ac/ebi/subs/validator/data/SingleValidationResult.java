@@ -1,5 +1,6 @@
 package uk.ac.ebi.subs.validator.data;
 
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import uk.ac.ebi.subs.validator.data.structures.SingleValidationResultStatus;
 import uk.ac.ebi.subs.validator.data.structures.ValidationAuthor;
@@ -8,6 +9,7 @@ import uk.ac.ebi.subs.validator.data.structures.ValidationAuthor;
   * Validation entity result document to store an entity validation result for a specific rule set
   */
 @ToString
+@EqualsAndHashCode
 public class SingleValidationResult {
 
     private ValidationAuthor validationAuthor;
