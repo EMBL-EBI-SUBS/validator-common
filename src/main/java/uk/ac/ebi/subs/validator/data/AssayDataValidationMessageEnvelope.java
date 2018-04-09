@@ -31,7 +31,13 @@ public class AssayDataValidationMessageEnvelope extends ValidationMessageEnvelop
 
     private Collection<Submittable<Assay>> assays = new ArrayList<>();
 
+    public Collection<Submittable<Assay>> getAssays() {
+        return assays;
+    }
 
+    public void setAssays(Collection<Submittable<Assay>> assays) {
+        this.assays = assays;
+    }
 
     @Override
     public Stream<Submittable> allSubmissionItemsStream() {
