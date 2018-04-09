@@ -6,6 +6,8 @@ import uk.ac.ebi.subs.validator.model.Submittable;
 import uk.ac.ebi.subs.data.submittable.Assay;
 import uk.ac.ebi.subs.data.submittable.AssayData;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.stream.Stream;
 
 /**
@@ -27,31 +29,15 @@ public class AssayDataValidationMessageEnvelope extends ValidationMessageEnvelop
     public AssayDataValidationMessageEnvelope() {
     }
 
-    private Submittable<Assay> assay;
-    private Submittable<Sample> sample;
+    private Collection<Submittable<Assay>> assays = new ArrayList<>();
 
-    public Submittable<Assay> getAssay() {
-        return assay;
-    }
 
-    public void setAssay(Submittable<Assay> assay) {
-        this.assay = assay;
-    }
-
-    public Submittable<Sample> getSample() {
-        return sample;
-    }
-
-    public void setSample(Submittable<Sample> sample) {
-        this.sample = sample;
-    }
 
     @Override
     public Stream<Submittable> allSubmissionItemsStream() {
-        return Stream.of(
+        return Stream.concat(
                 super.allSubmissionItemsStream(),
-                Stream.of(this.assay),
-                Stream.of(this.sample)
-        ).flatMap(i -> i);
+                assays.stream()
+        );
     }
 }
