@@ -24,12 +24,6 @@ public class FileUploadValidationMessageEnvelope {
     public FileUploadValidationMessageEnvelope() {
     }
 
-    public FileUploadValidationMessageEnvelope(String validationResultUUID, int validationResultVersion, File fileToValidate) {
-        this.validationResultUUID = validationResultUUID;
-        this.validationResultVersion = validationResultVersion;
-        this.fileToValidate = fileToValidate;
-    }
-
     public FileUploadValidationMessageEnvelope(String validationResultUUID, int validationResultVersion, File fileToValidate, String submissionId) {
         this.validationResultUUID = validationResultUUID;
         this.validationResultVersion = validationResultVersion;
