@@ -10,15 +10,15 @@ import uk.ac.ebi.subs.data.submittable.BaseSubmittable;
  * Created by karoly on 30/05/2017.
  */
 
-public class SubmittableValidationEnvelope<T extends BaseSubmittable> {
+public class ValidationEnvelopeToCoordinator<T extends BaseSubmittable> {
 
     private String submissionId;
     private T entityToValidate;
 
-    public SubmittableValidationEnvelope() {
+    public ValidationEnvelopeToCoordinator() {
     }
 
-    public SubmittableValidationEnvelope(String submissionId, T entityToValidate) {
+    public ValidationEnvelopeToCoordinator(String submissionId, T entityToValidate) {
         this.submissionId = submissionId;
         this.entityToValidate = entityToValidate;
     }

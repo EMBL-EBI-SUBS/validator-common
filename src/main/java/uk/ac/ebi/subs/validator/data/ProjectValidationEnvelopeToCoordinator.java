@@ -9,6 +9,6 @@ import uk.ac.ebi.subs.data.submittable.Project;
  *
  */
 
-public class SubmittedProjectValidationEnvelope extends SubmittableValidationEnvelope<Project> {
+public class ProjectValidationEnvelopeToCoordinator extends ValidationEnvelopeToCoordinator<Project> {
 
 }
