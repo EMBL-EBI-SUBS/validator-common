@@ -10,6 +10,6 @@ import uk.ac.ebi.subs.data.submittable.Sample;
  * Created by karoly on 6/10/2017.
  */
 
-public class SubmittedSampleValidationEnvelope extends SubmittableValidationEnvelope<Sample> {
+public class SampleValidationEnvelopeToCoordinator extends ValidationEnvelopeToCoordinator<Sample> {
 
 }
