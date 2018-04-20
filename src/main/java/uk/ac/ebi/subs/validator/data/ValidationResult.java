@@ -7,11 +7,15 @@ import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import uk.ac.ebi.subs.validator.data.structures.GlobalValidationStatus;
+import uk.ac.ebi.subs.validator.data.structures.SingleValidationResultStatus;
 import uk.ac.ebi.subs.validator.data.structures.ValidationAuthor;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
   * Validation result document to store all the validation results
@@ -21,8 +25,7 @@ import java.util.Map;
 @CompoundIndexes({
     @CompoundIndex(name = "submission_entity_id", def = "{'submissionId': 1, 'entityUuid': 1}"),
     @CompoundIndex(name = "entity_uuid", def = "{'entityUuid': 1}")
-}
-)
+})
 public class ValidationResult {
 
     @Id
@@ -95,5 +98,55 @@ public class ValidationResult {
 
     public void setExpectedResults(Map<ValidationAuthor, List<SingleValidationResult>> expectedResults) {
         this.expectedResults = expectedResults;
+    }
+
+    /** Expose Validation Outcomes */
+    public Map<ValidationAuthor, String> getOverallValidationOutcomeByAuthor() {
+        Map<ValidationAuthor, String> overallValidationOutcomes = new HashMap<>();
+        if (this.validationStatus.equals(GlobalValidationStatus.Complete)) {
+            Map<ValidationAuthor, List<SingleValidationResult>> expectedResultsCopy = new HashMap<>(this.expectedResults);
+
+            for (Map.Entry<ValidationAuthor, List<SingleValidationResult>> entry : expectedResultsCopy.entrySet()) {
+                overallValidationOutcomes.put(entry.getKey(), getOverallValidationOutcome(entry.getValue()).toString());
+            }
+        }
+        return overallValidationOutcomes;
+    }
+
+    private SingleValidationResultStatus getOverallValidationOutcome(List<SingleValidationResult> singleValidationResults) {
+        SingleValidationResultStatus status = SingleValidationResultStatus.Pass;
+        for (SingleValidationResult validationResult : singleValidationResults) {
+            if (validationResult.getValidationStatus().equals(SingleValidationResultStatus.Error)) {
+                status = SingleValidationResultStatus.Error;
+                return status;
+            } else if (validationResult.getValidationStatus().equals(SingleValidationResultStatus.Warning)) {
+                status = SingleValidationResultStatus.Warning;
+            }
+        }
+        return status;
+    }
+
+    /** Expose Error Messages */
+    public Map<ValidationAuthor, List<String>> getErrorMessages() {
+        Map<ValidationAuthor, List<String>> errorMessagesByAuthor = new HashMap<>();
+        if (this.validationStatus.equals(GlobalValidationStatus.Complete)) {
+            Map<ValidationAuthor, List<SingleValidationResult>> expectedResultsCopy = new HashMap<>(this.expectedResults);
+
+            for (Map.Entry<ValidationAuthor, List<SingleValidationResult>> entry : expectedResultsCopy.entrySet()) {
+                errorMessagesByAuthor.put(entry.getKey(), getErrorMessages(entry.getValue()));
+            }
+        }
+        return errorMessagesByAuthor;
+    }
+
+    private List<String> getErrorMessages(List<SingleValidationResult> singleValidationResults) {
+        List<String> errorMessagesList = new ArrayList<>();
+        for (SingleValidationResult validationResult : singleValidationResults) {
+            if (validationResult.getValidationStatus().equals(SingleValidationResultStatus.Error)
+                    || validationResult.getValidationStatus().equals(SingleValidationResultStatus.Warning)) {
+                errorMessagesList.add(validationResult.getMessage());
+            }
+        }
+        return errorMessagesList;
     }
 }
