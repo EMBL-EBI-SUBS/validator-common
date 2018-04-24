@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.data.projection.ProjectionFactory;
 import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -23,15 +22,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@EnableMongoRepositories(basePackageClasses = ValidationResultRepository.class)
 @EnableAutoConfiguration
 public class ProjectionTest {
 
-    @Autowired
-    private ValidationResultRepository repository;
     @Autowired
     private ProjectionFactory projectionFactory;
 
@@ -40,19 +35,12 @@ public class ProjectionTest {
     @Before
     public void setUp() {
         entityUuid = UUID.randomUUID().toString();
-        createMockValidationResult(entityUuid);
     }
 
     @Test
     public void testOverallStatusProjection() {
-        Stream.of(repository.findByEntityUuid(entityUuid))
-                .map(validationResult -> projectionFactory.createProjection(ValidationResultStatus.class, validationResult))
-                .forEach(System.out::println);
-    }
-
-    @After
-    public void tearDown() {
-        repository.deleteAll();
+        ValidationResultStatus validationResultStatus = projectionFactory.createProjection(ValidationResultStatus.class, createMockValidationResult(entityUuid));
+        System.out.println("-> " + validationResultStatus);
     }
 
     @Configuration
@@ -65,7 +53,7 @@ public class ProjectionTest {
     }
 
     /** Helper Methods */
-    private void createMockValidationResult(String entityUuid) {
+    private ValidationResult createMockValidationResult(String entityUuid) {
         ValidationResult validationResult = new ValidationResult();
         validationResult.setUuid(UUID.randomUUID().toString());
         validationResult.setEntityUuid(entityUuid);
@@ -78,8 +66,7 @@ public class ProjectionTest {
         validationAuthorListMap.put(ValidationAuthor.Biosamples, Arrays.asList(generatePassingSingleValidationResult(entityUuid, ValidationAuthor.Biosamples)));
 
         validationResult.setExpectedResults(validationAuthorListMap);
-
-        repository.save(validationResult);
+        return validationResult;
     }
 
     private SingleValidationResult generatePassingSingleValidationResult(String entityUUID, ValidationAuthor author) {
