@@ -1,7 +1,7 @@
 # Validator Common
 [![Build Status](https://travis-ci.org/EMBL-EBI-SUBS/validator-common.svg?branch=master)](https://travis-ci.org/EMBL-EBI-SUBS/validator-common)
 
-This repository contains the **common validation library** where all the validation common objects live.
+Library containing the core entities and messaging configurations related to the USI validation service.
 
 ## License
-This project is licensed under the *Apache 2.0 License*, for more details see [LICENSE.md](LICENSE.md).
+This project is licensed under the Apache 2.0 License - see the [LICENSE.md](LICENSE.md) file for details.
