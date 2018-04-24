@@ -1,5 +1,6 @@
 package uk.ac.ebi.subs.validator.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
@@ -43,8 +44,10 @@ public class ValidationResult {
 
     private Map<ValidationAuthor, List<SingleValidationResult>> expectedResults = new HashMap<>();
 
-    // Default Projection Field Placeholders
+    // Projection Field Placeholders
+    @JsonIgnore
     private Map<ValidationAuthor, String> overallValidationOutcomeByAuthor;
+    @JsonIgnore
     private Map<ValidationAuthor, List<String>> errorMessages;
 
     public String getUuid() {

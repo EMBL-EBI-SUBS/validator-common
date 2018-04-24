@@ -23,6 +23,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * This test is not actually testing anything other than being useful to see a projection output.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @EnableAutoConfiguration
 public class ProjectionTest {
