@@ -12,7 +12,7 @@ plugins {
 }
 
 group 'uk.ac.ebi.subs'
-version '2.4.2-SNAPSHOT'
+version '2.5.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'maven-publish'
@@ -43,6 +43,7 @@ dependencies {
 
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.hamcrest', name: 'java-hamcrest', version: '2.0.0.0'
 }
 
 publishing {
