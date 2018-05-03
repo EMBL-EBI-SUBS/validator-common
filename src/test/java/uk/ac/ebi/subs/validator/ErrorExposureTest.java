@@ -8,6 +8,7 @@ import uk.ac.ebi.subs.validator.data.structures.GlobalValidationStatus;
 import uk.ac.ebi.subs.validator.data.structures.SingleValidationResultStatus;
 import uk.ac.ebi.subs.validator.data.structures.ValidationAuthor;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -95,6 +96,16 @@ public class ErrorExposureTest {
     public void errorMessagesByTaxonomy_ShouldHave_TwoMessages() {
         validationResult.setValidationStatus(GlobalValidationStatus.Complete);
         assertThat(validationResult.getErrorMessages().get(ValidationAuthor.Taxonomy), hasSize(2));
+    }
+
+    @Test(expected = Exception.class)
+    public void overallValidationOutcomeByAuthor_ShouldBe_Unmodifiable() {
+        validationResult.getOverallValidationOutcomeByAuthor().put(ValidationAuthor.Biosamples, "");
+    }
+
+    @Test(expected = Exception.class)
+    public void errorMessages_ShouldBe_Unmodifiable() {
+        validationResult.getErrorMessages().put(ValidationAuthor.Biosamples, new ArrayList<>());
     }
 
     @Before
