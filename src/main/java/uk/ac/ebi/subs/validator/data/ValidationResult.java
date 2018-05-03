@@ -10,6 +10,7 @@ import uk.ac.ebi.subs.validator.data.structures.GlobalValidationStatus;
 import uk.ac.ebi.subs.validator.data.structures.SingleValidationResultStatus;
 import uk.ac.ebi.subs.validator.data.structures.ValidationAuthor;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,7 +77,7 @@ public class ValidationResult {
             this.errorMessages = new TreeMap<>();
         } else if (validationStatus.equals(GlobalValidationStatus.Complete)) {
             computeOverallValidationOutcomeByAuthor();
-            exposeErrorMessages();
+            exposeErrorAndWarningMessages();
         }
         this.validationStatus = validationStatus;
     }
@@ -114,11 +115,11 @@ public class ValidationResult {
     }
 
     public Map<ValidationAuthor, String> getOverallValidationOutcomeByAuthor() {
-        return overallValidationOutcomeByAuthor;
+        return Collections.unmodifiableMap(this.overallValidationOutcomeByAuthor);
     }
 
     public Map<ValidationAuthor, List<String>> getErrorMessages() {
-        return errorMessages;
+        return Collections.unmodifiableMap(this.errorMessages);
     }
 
 
@@ -141,13 +142,13 @@ public class ValidationResult {
         return status;
     }
 
-    private void exposeErrorMessages() {
+    private void exposeErrorAndWarningMessages() {
         Map<ValidationAuthor, List<String>> errorMessagesByAuthor = new TreeMap<>();
-        this.expectedResults.entrySet().forEach(entry -> errorMessagesByAuthor.put(entry.getKey(), filterOutErrorMessages(entry.getValue())));
+        this.expectedResults.entrySet().forEach(entry -> errorMessagesByAuthor.put(entry.getKey(), getErrorAndWarningMessages(entry.getValue())));
         this.errorMessages = new TreeMap<>(errorMessagesByAuthor);
     }
 
-    private List<String> filterOutErrorMessages(List<SingleValidationResult> singleValidationResults) {
+    private List<String> getErrorAndWarningMessages(List<SingleValidationResult> singleValidationResults) {
         return singleValidationResults.stream()
                 .filter(svr -> svr.getValidationStatus().equals(SingleValidationResultStatus.Error)
                         || svr.getValidationStatus().equals(SingleValidationResultStatus.Warning))
