@@ -13,5 +13,6 @@ public enum ValidationAuthor {
     ArrayExpress,
     Metabolights,
     Pride,
-    FileReference
+    FileReference,
+    JsonSchema
 }
