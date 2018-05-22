@@ -1,6 +1,5 @@
 package uk.ac.ebi.subs.validator.data;
 
-import uk.ac.ebi.subs.data.submittable.Sample;
 import uk.ac.ebi.subs.data.submittable.Study;
 
 /**
@@ -11,6 +10,6 @@ import uk.ac.ebi.subs.data.submittable.Study;
  * Created by karoly on 6/10/2017.
  */
 
-public class SubmittedStudyValidationEnvelope extends SubmittableValidationEnvelope<Study> {
+public class StudyValidationEnvelopeToCoordinator extends ValidationEnvelopeToCoordinator<Study> {
 
 }

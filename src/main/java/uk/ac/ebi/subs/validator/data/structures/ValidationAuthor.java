@@ -12,5 +12,7 @@ public enum ValidationAuthor {
     BioStudies,
     ArrayExpress,
     Metabolights,
-    Pride
+    Pride,
+    FileReference,
+    JsonSchema
 }

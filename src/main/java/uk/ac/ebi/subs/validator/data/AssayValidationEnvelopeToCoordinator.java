@@ -10,6 +10,6 @@ import uk.ac.ebi.subs.data.submittable.Assay;
  * Created by karoly on 6/10/2017.
  */
 
-public class SubmittedAssayValidationEnvelope extends SubmittableValidationEnvelope<Assay> {
+public class AssayValidationEnvelopeToCoordinator extends ValidationEnvelopeToCoordinator<Assay> {
 
 }
