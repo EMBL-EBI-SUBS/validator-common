@@ -11,7 +11,6 @@ import java.util.Map;
 @Projection(name = "overallStatus", types = ValidationResult.class)
 public interface ValidationResultStatus {
 
-    String getEntityType();
     GlobalValidationStatus getValidationStatus();
     String getMessage();
     Map<ValidationAuthor, String> getOverallValidationOutcomeByAuthor();
