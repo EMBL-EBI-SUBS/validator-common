@@ -33,6 +33,8 @@ public class ValidationResult {
 
     private int version;
 
+    private String entityType;
+
     private GlobalValidationStatus validationStatus = GlobalValidationStatus.Pending;
 
     private String message;
@@ -65,6 +67,14 @@ public class ValidationResult {
 
     public void setVersion(int version) {
         this.version = version;
+    }
+
+    public String getEntityType() {
+        return entityType;
+    }
+
+    public void setEntityType(String entityType) {
+        this.entityType = entityType;
     }
 
     public GlobalValidationStatus getValidationStatus() {
