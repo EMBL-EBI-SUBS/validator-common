@@ -1,9 +1,12 @@
 package uk.ac.ebi.subs.validator.data;
 
 import uk.ac.ebi.subs.data.submittable.Project;
+import uk.ac.ebi.subs.data.submittable.Protocol;
 import uk.ac.ebi.subs.data.submittable.Study;
 import uk.ac.ebi.subs.validator.model.Submittable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 /**
@@ -26,6 +29,17 @@ public class StudyValidationMessageEnvelope extends ValidationMessageEnvelope<St
     }
 
     private Submittable<Project> project;
+
+    private List<Protocol> protocols = new ArrayList<>();
+
+
+    public List<Protocol> getProtocols() {
+        return protocols;
+    }
+
+    public void setProtocols(List<Protocol> protocols) {
+        this.protocols = protocols;
+    }
 
     public Submittable<Project> getProject() {
         return project;
