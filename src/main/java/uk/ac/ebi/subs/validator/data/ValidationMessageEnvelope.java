@@ -73,7 +73,7 @@ public class ValidationMessageEnvelope<T extends BaseSubmittable> {
 
     public Stream<uk.ac.ebi.subs.validator.model.Submittable> allSubmissionItemsStream() {
         uk.ac.ebi.subs.validator.model.Submittable submittable = new uk.ac.ebi.subs.validator.model.Submittable<T>(entityToValidate,submissionId);
-        return Collections.singletonList(submittable).stream();
+        return Stream.of(submittable);
     }
 
     public Stream<Submittable> allSubmissionItemsStreamInSubmission() {
