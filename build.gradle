@@ -33,7 +33,7 @@ dependencies {
 }
 
 dependencies {
-    compile group: 'uk.ac.ebi.subs', name: 'subs-data-model', version: '2.5.0-SNAPSHOT'
+    compile group: 'uk.ac.ebi.subs', name: 'subs-data-model', version: '2.5.1-SNAPSHOT'
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.12'
 
