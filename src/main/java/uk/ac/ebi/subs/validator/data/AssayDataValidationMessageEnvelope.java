@@ -1,5 +1,6 @@
 package uk.ac.ebi.subs.validator.data;
 
+import uk.ac.ebi.subs.data.submittable.Protocol;
 import uk.ac.ebi.subs.data.submittable.Sample;
 import uk.ac.ebi.subs.validator.model.Submittable;
 
@@ -8,6 +9,7 @@ import uk.ac.ebi.subs.data.submittable.AssayData;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Stream;
 
 /**
@@ -38,6 +40,18 @@ public class AssayDataValidationMessageEnvelope extends ValidationMessageEnvelop
     public void setAssays(Collection<Submittable<Assay>> assays) {
         this.assays = assays;
     }
+
+    private List<Submittable<Protocol>> protocols = new ArrayList<>();
+
+
+    public List<Submittable<Protocol>> getProtocols() {
+        return protocols;
+    }
+
+    public void setProtocols(List<Submittable<Protocol>> protocols) {
+        this.protocols = protocols;
+    }
+
 
     @Override
     public Stream<Submittable> allSubmissionItemsStream() {
