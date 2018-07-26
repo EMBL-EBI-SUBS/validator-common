@@ -30,14 +30,14 @@ public class StudyValidationMessageEnvelope extends ValidationMessageEnvelope<St
 
     private Submittable<Project> project;
 
-    private List<Protocol> protocols = new ArrayList<>();
+    private List<Submittable<Protocol>> protocols = new ArrayList<>();
 
 
-    public List<Protocol> getProtocols() {
+    public List<Submittable<Protocol>> getProtocols() {
         return protocols;
     }
 
-    public void setProtocols(List<Protocol> protocols) {
+    public void setProtocols(List<Submittable<Protocol>> protocols) {
         this.protocols = protocols;
     }
 
