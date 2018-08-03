@@ -1,5 +1,6 @@
 package uk.ac.ebi.subs.validator.data;
 
+import uk.ac.ebi.subs.data.component.StudyDataType;
 import uk.ac.ebi.subs.data.submittable.Sample;
 import uk.ac.ebi.subs.validator.model.Submittable;
 
@@ -18,6 +19,7 @@ import java.util.stream.Stream;
  */
 public class SampleValidationMessageEnvelope extends ValidationMessageEnvelope<Sample> {
     private List<Submittable<Sample>> sampleList = new ArrayList();
+    private StudyDataType studyDataType = null;
 
     public SampleValidationMessageEnvelope() {
     }
@@ -35,6 +37,12 @@ public class SampleValidationMessageEnvelope extends ValidationMessageEnvelope<S
 
     public void setSampleList(List<Submittable<Sample>> sampleList) {
         this.sampleList = sampleList;
+    }
+
+    public StudyDataType getStudyDataType(){return studyDataType;}
+
+    public void setStudyDataType(StudyDataType studyDataType){
+        this.studyDataType = studyDataType;
     }
 
     @Override
