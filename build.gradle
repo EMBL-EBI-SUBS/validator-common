@@ -2,13 +2,11 @@ buildscript {
     repositories {
         mavenCentral()
     }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.1.RELEASE")
-    }
 }
 
 plugins {
     id 'com.sourcemuse.mongo' version '1.0.0'
+    id "org.springframework.boot" version "1.5.1.RELEASE"
 }
 
 group 'uk.ac.ebi.subs'
