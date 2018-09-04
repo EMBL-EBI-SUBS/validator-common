@@ -14,12 +14,13 @@ public class ValidationEnvelopeToCoordinator<T extends BaseSubmittable> {
 
     private String submissionId;
     private String dataTypeId;
+    private String checklistId;
     private T entityToValidate;
 
     public ValidationEnvelopeToCoordinator() {
     }
 
-    public ValidationEnvelopeToCoordinator(String submissionId, T entityToValidate, String dataTypeId) {
+    public ValidationEnvelopeToCoordinator(String submissionId, T entityToValidate, String dataTypeId, String checklistId) {
         this.submissionId = submissionId;
         this.entityToValidate = entityToValidate;
         this.dataTypeId = dataTypeId;
@@ -47,5 +48,13 @@ public class ValidationEnvelopeToCoordinator<T extends BaseSubmittable> {
 
     public void setDataTypeId(String dataTypeId) {
         this.dataTypeId = dataTypeId;
+    }
+
+    public String getChecklistId() {
+        return checklistId;
+    }
+
+    public void setChecklistId(String checklistId) {
+        this.checklistId = checklistId;
     }
 }
