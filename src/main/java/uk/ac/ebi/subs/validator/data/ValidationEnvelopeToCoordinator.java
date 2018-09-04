@@ -13,14 +13,17 @@ import uk.ac.ebi.subs.data.submittable.BaseSubmittable;
 public class ValidationEnvelopeToCoordinator<T extends BaseSubmittable> {
 
     private String submissionId;
+    private String dataTypeId;
+    private String checklistId;
     private T entityToValidate;
 
     public ValidationEnvelopeToCoordinator() {
     }
 
-    public ValidationEnvelopeToCoordinator(String submissionId, T entityToValidate) {
+    public ValidationEnvelopeToCoordinator(String submissionId, T entityToValidate, String dataTypeId, String checklistId) {
         this.submissionId = submissionId;
         this.entityToValidate = entityToValidate;
+        this.dataTypeId = dataTypeId;
     }
 
     public String getSubmissionId() {
@@ -37,5 +40,21 @@ public class ValidationEnvelopeToCoordinator<T extends BaseSubmittable> {
 
     public void setEntityToValidate(T entityToValidate) {
         this.entityToValidate = entityToValidate;
+    }
+
+    public String getDataTypeId() {
+        return dataTypeId;
+    }
+
+    public void setDataTypeId(String dataTypeId) {
+        this.dataTypeId = dataTypeId;
+    }
+
+    public String getChecklistId() {
+        return checklistId;
+    }
+
+    public void setChecklistId(String checklistId) {
+        this.checklistId = checklistId;
     }
 }
