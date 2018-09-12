@@ -23,10 +23,10 @@ public interface ValidationResultRepository extends MongoRepository<ValidationRe
     @RestResource(exported = true, path = "by-submission", rel = "by-submission")
     Page<ValidationResult> findBySubmissionId(@Param("submissionId") String submissionId, Pageable pageable);
 
-    @RestResource(exported = false, path = "all-by-submission", rel = "all-by-submission")
+    @RestResource(exported = false)
     List<ValidationResult> findAllBySubmissionId(@Param("submissionId") String submissionId);
 
-    @RestResource(exported = false, path = "by-submission-and-dataType", rel = "by-submission-and-dataType")
+    @RestResource(exported = false)
     Stream<ValidationResult> findBySubmissionIdAndDataTypeId(@Param("submissionId") String submissionId, @Param("dataTypeId") String dataTypeId);
 
     //TODO karoly: need to add access control (when implementing AAP) to these methods
