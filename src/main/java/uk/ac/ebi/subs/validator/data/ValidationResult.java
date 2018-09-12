@@ -35,11 +35,13 @@ public class ValidationResult {
 
     private String entityType;
 
+    private String entityUuid;
+
+    private String dataTypeId;
+
     private GlobalValidationStatus validationStatus = GlobalValidationStatus.Pending;
 
     private String message;
-
-    private String entityUuid;
 
     @Indexed
     private String submissionId;
@@ -77,6 +79,22 @@ public class ValidationResult {
         this.entityType = entityType;
     }
 
+    public String getEntityUuid() {
+        return entityUuid;
+    }
+
+    public void setEntityUuid(String entityUuid) {
+        this.entityUuid = entityUuid;
+    }
+
+    public String getDataTypeId() {
+        return dataTypeId;
+    }
+
+    public void setDataTypeId(String dataTypeId) {
+        this.dataTypeId = dataTypeId;
+    }
+
     public GlobalValidationStatus getValidationStatus() {
         return validationStatus;
     }
@@ -98,14 +116,6 @@ public class ValidationResult {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public String getEntityUuid() {
-        return entityUuid;
-    }
-
-    public void setEntityUuid(String entityUuid) {
-        this.entityUuid = entityUuid;
     }
 
     public String getSubmissionId() {

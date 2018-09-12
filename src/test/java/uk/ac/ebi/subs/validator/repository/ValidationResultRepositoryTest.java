@@ -21,6 +21,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.equalTo;
@@ -39,6 +41,8 @@ public class ValidationResultRepositoryTest {
     private static final String ENTITY_UUID_2 = "98876";
     private static final String ENTITY_UUID_3 = "11223";
     private static final String ENTITY_UUID_INVALID = "invalid entity uuid";
+    private static final String SAMPLES_DATA_TYPE = "samples";
+    private static final String SEQUENCING_RUN_DATA_TYPE = "sequencingRuns";
 
     @Autowired
     ValidationResultRepository validationResultRepository;
@@ -62,6 +66,7 @@ public class ValidationResultRepositoryTest {
         validationResult.setVersion(1);
         validationResult.setSubmissionId(SUBMISSION_ID_1);
         validationResult.setEntityUuid(ENTITY_UUID_1);
+        validationResult.setDataTypeId(SAMPLES_DATA_TYPE);
 
         validationResultRepository.insert(validationResult);
 
@@ -69,6 +74,7 @@ public class ValidationResultRepositoryTest {
         validationResult.setUuid(UUID.randomUUID().toString());
         validationResult.setSubmissionId(SUBMISSION_ID_2);
         validationResult.setEntityUuid(ENTITY_UUID_2);
+        validationResult.setDataTypeId(SEQUENCING_RUN_DATA_TYPE);
 
         validationResultRepository.insert(validationResult);
 
@@ -76,6 +82,7 @@ public class ValidationResultRepositoryTest {
         validationResult.setUuid(UUID.randomUUID().toString());
         validationResult.setSubmissionId(SUBMISSION_ID_1);
         validationResult.setEntityUuid(ENTITY_UUID_3);
+        validationResult.setDataTypeId(SEQUENCING_RUN_DATA_TYPE);
 
         validationResultRepository.insert(validationResult);
     }
@@ -141,6 +148,18 @@ public class ValidationResultRepositoryTest {
                 validationResultRepository.findAllBySubmissionId(SUBMISSION_ID_INVALID);
 
         assertThat(actualEmptyValidationResults.size(), is(equalTo(0)));
+    }
+
+    @Test
+    public void findValidationResultsBySubmissionIdAndDataTypeId() {
+        Stream<ValidationResult> streamOfValidationResults =
+                validationResultRepository.findBySubmissionIdAndDataTypeId(SUBMISSION_ID_1, SEQUENCING_RUN_DATA_TYPE);
+
+        List<ValidationResult> validationResults = streamOfValidationResults.collect(Collectors.toList());
+
+        assertThat(validationResults.size(), is(equalTo(1)));
+        assertThat(validationResults.get(0).getDataTypeId(), is(equalTo(SEQUENCING_RUN_DATA_TYPE)));
+        assertThat(validationResults.get(0).getSubmissionId(), is(equalTo(SUBMISSION_ID_1)));
     }
 
     @After
