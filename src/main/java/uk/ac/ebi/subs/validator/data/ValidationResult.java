@@ -24,7 +24,8 @@ import java.util.stream.Collectors;
 @Document
 @CompoundIndexes({
     @CompoundIndex(name = "submission_entity_id", def = "{'submissionId': 1, 'entityUuid': 1}"),
-    @CompoundIndex(name = "entity_uuid", def = "{'entityUuid': 1}")
+    @CompoundIndex(name = "entity_uuid", def = "{'entityUuid': 1}"),
+    @CompoundIndex(name = "submission_datatype_id", def = "{'submissionId': 1, 'dataTypeId': 1}")
 })
 public class ValidationResult {
 
