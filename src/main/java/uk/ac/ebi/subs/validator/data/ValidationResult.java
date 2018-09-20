@@ -50,11 +50,13 @@ public class ValidationResult {
     private Map<ValidationAuthor, List<SingleValidationResult>> expectedResults = new HashMap<>();
 
     /*
-    This 2 fields are set when the validationStatus is set to Complete
+    This 4 fields are set when the validationStatus is set to Complete
     and are reset when the validationStatus is set to Pending.
     */
     private Map<ValidationAuthor, String> overallValidationOutcomeByAuthor = new TreeMap<>();
     private Map<ValidationAuthor, List<String>> errorMessages = new TreeMap<>();
+    private boolean hasError;
+    private boolean hasWarning;
 
     public String getUuid() {
         return uuid;
@@ -104,6 +106,8 @@ public class ValidationResult {
         if (validationStatus.equals(GlobalValidationStatus.Pending)) {
             this.overallValidationOutcomeByAuthor = new TreeMap<>();
             this.errorMessages = new TreeMap<>();
+            this.hasError = false;
+            this.hasError = false;
         } else if (validationStatus.equals(GlobalValidationStatus.Complete)) {
             computeOverallValidationOutcomeByAuthor();
             exposeErrorAndWarningMessages();
@@ -143,6 +147,13 @@ public class ValidationResult {
         return Collections.unmodifiableMap(this.errorMessages);
     }
 
+    public boolean hasError() {
+        return this.hasError;
+    }
+
+    public boolean hasWarning() {
+        return this.hasWarning;
+    }
 
     private void computeOverallValidationOutcomeByAuthor() {
         Map<ValidationAuthor, String> tempMap = new TreeMap<>();
@@ -155,9 +166,15 @@ public class ValidationResult {
         for (SingleValidationResult singleValidationResult : singleValidationResults) {
             if (singleValidationResult.getValidationStatus().equals(SingleValidationResultStatus.Error)) {
                 status = SingleValidationResultStatus.Error;
+                if (!this.hasError) {
+                    this.hasError = true;
+                }
                 return status;
             } else if (singleValidationResult.getValidationStatus().equals(SingleValidationResultStatus.Warning)) {
                 status = SingleValidationResultStatus.Warning;
+                if (!this.hasWarning) {
+                    this.hasWarning = true;
+                }
             }
         }
         return status;
@@ -176,5 +193,4 @@ public class ValidationResult {
                 .map(svr -> svr.getMessage())
                 .collect(Collectors.toList());
     }
-
 }

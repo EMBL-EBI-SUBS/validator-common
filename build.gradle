@@ -10,7 +10,7 @@ plugins {
 }
 
 group 'uk.ac.ebi.subs'
-version '3.1.1-SNAPSHOT'
+version '3.2.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'maven-publish'

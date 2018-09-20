@@ -13,10 +13,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import uk.ac.ebi.subs.validator.data.SingleValidationResult;
-import uk.ac.ebi.subs.validator.data.structures.ValidationAuthor;
 import uk.ac.ebi.subs.validator.data.ValidationResult;
+import uk.ac.ebi.subs.validator.data.structures.GlobalValidationStatus;
+import uk.ac.ebi.subs.validator.data.structures.SingleValidationResultStatus;
+import uk.ac.ebi.subs.validator.data.structures.ValidationAuthor;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,9 +57,9 @@ public class ValidationResultRepositoryTest {
     @Before
     public void buildUp() {
         Map<ValidationAuthor, List<SingleValidationResult>> expectedResults = new HashMap<>();
-        expectedResults.put(ValidationAuthor.Biosamples, new ArrayList<>());
-        expectedResults.put(ValidationAuthor.Taxonomy, new ArrayList<>());
-        expectedResults.put(ValidationAuthor.Ena, new ArrayList<>());
+        expectedResults.put(ValidationAuthor.Biosamples, Collections.singletonList(generateSingleValidationResult(SingleValidationResultStatus.Error)));
+        expectedResults.put(ValidationAuthor.Taxonomy, Collections.singletonList(generateSingleValidationResult(SingleValidationResultStatus.Pass)));
+        expectedResults.put(ValidationAuthor.Ena, Collections.singletonList(generateSingleValidationResult(SingleValidationResultStatus.Warning)));
 
         // First
         validationResult = new ValidationResult();
@@ -67,22 +69,37 @@ public class ValidationResultRepositoryTest {
         validationResult.setSubmissionId(SUBMISSION_ID_1);
         validationResult.setEntityUuid(ENTITY_UUID_1);
         validationResult.setDataTypeId(SAMPLES_DATA_TYPE);
+        validationResult.setValidationStatus(GlobalValidationStatus.Complete);
 
         validationResultRepository.insert(validationResult);
 
         // Second
         validationResult.setUuid(UUID.randomUUID().toString());
+        validationResult.setExpectedResults(expectedResults);
         validationResult.setSubmissionId(SUBMISSION_ID_2);
         validationResult.setEntityUuid(ENTITY_UUID_2);
         validationResult.setDataTypeId(SEQUENCING_RUN_DATA_TYPE);
+        validationResult.setValidationStatus(GlobalValidationStatus.Complete);
 
         validationResultRepository.insert(validationResult);
 
         // Third
         validationResult.setUuid(UUID.randomUUID().toString());
+        validationResult.setExpectedResults(expectedResults);
         validationResult.setSubmissionId(SUBMISSION_ID_1);
         validationResult.setEntityUuid(ENTITY_UUID_3);
         validationResult.setDataTypeId(SEQUENCING_RUN_DATA_TYPE);
+        validationResult.setValidationStatus(GlobalValidationStatus.Complete);
+
+        validationResultRepository.insert(validationResult);
+
+        // Forth
+        validationResult.setUuid(UUID.randomUUID().toString());
+        validationResult.setExpectedResults(expectedResults);
+        validationResult.setSubmissionId(SUBMISSION_ID_1);
+        validationResult.setEntityUuid(ENTITY_UUID_2);
+        validationResult.setDataTypeId(SAMPLES_DATA_TYPE);
+        validationResult.setValidationStatus(GlobalValidationStatus.Complete);
 
         validationResultRepository.insert(validationResult);
     }
@@ -92,7 +109,8 @@ public class ValidationResultRepositoryTest {
         ValidationResult retrievedResult = validationResultRepository.findOne(validationResult.getUuid());
         System.out.println(retrievedResult);
 
-        assertThat(retrievedResult.getExpectedResults().get(ValidationAuthor.Biosamples), is(new ArrayList<>()));
+        assertThat(retrievedResult.getExpectedResults().get(ValidationAuthor.Biosamples),
+                is(Collections.singletonList(generateSingleValidationResult(SingleValidationResultStatus.Error))));
     }
 
     @Test
@@ -115,7 +133,7 @@ public class ValidationResultRepositoryTest {
         Page<ValidationResult> actualValidationResultsPaged =
                 validationResultRepository.findBySubmissionId(SUBMISSION_ID_1, pageRequest);
 
-        assertThat(actualValidationResultsPaged.getTotalElements(), is(equalTo(2L)));
+        assertThat(actualValidationResultsPaged.getTotalElements(), is(equalTo(3L)));
 
         List<ValidationResult> actualValidationResults = actualValidationResultsPaged.getContent();
         assertThat(actualValidationResults.get(0).getEntityUuid(), is(equalTo(ENTITY_UUID_3)));
@@ -136,7 +154,7 @@ public class ValidationResultRepositoryTest {
         List<ValidationResult> actualValidationResults =
                 validationResultRepository.findAllBySubmissionId(SUBMISSION_ID_1);
 
-        assertThat(actualValidationResults.size(), is(equalTo(2)));
+        assertThat(actualValidationResults.size(), is(equalTo(3)));
 
         assertThat(actualValidationResults.get(0).getEntityUuid(), is(equalTo(ENTITY_UUID_3)));
         assertThat(actualValidationResults.get(1).getEntityUuid(), is(equalTo(ENTITY_UUID_1)));
@@ -162,9 +180,44 @@ public class ValidationResultRepositoryTest {
         assertThat(validationResults.get(0).getSubmissionId(), is(equalTo(SUBMISSION_ID_1)));
     }
 
+    @Test
+    public void findValidationResultsBySubmissionIdAndDataTypeIdAndHasError() {
+        Page<ValidationResult> pagedValidationResults =
+                validationResultRepository.findBySubmissionIdAndDataTypeIdAndHasError(
+                        SUBMISSION_ID_1, SAMPLES_DATA_TYPE, true, new PageRequest(0, 50));
+
+        assertThat(pagedValidationResults.getTotalElements(), is(equalTo(2L)));
+        pagedValidationResults.forEach( validationResultFromPagedResult -> {
+            assertThat(validationResultFromPagedResult.getDataTypeId(), is(equalTo(SAMPLES_DATA_TYPE)));
+            assertThat(validationResultFromPagedResult.getSubmissionId(), is(equalTo(SUBMISSION_ID_1)));
+            assertThat(validationResultFromPagedResult.hasError(), is(equalTo(true)));
+        });
+    }
+
+    @Test
+    public void findValidationResultsBySubmissionIdAndDataTypeIdAndHasWarning() {
+        Page<ValidationResult> pagedValidationResults =
+                validationResultRepository.findBySubmissionIdAndDataTypeIdAndHasWarning(
+                        SUBMISSION_ID_2, SEQUENCING_RUN_DATA_TYPE, true, new PageRequest(0, 50));
+
+        assertThat(pagedValidationResults.getTotalElements(), is(equalTo(1L)));
+        pagedValidationResults.forEach( validationResultFromPagedResult -> {
+            assertThat(validationResultFromPagedResult.getDataTypeId(), is(equalTo(SEQUENCING_RUN_DATA_TYPE)));
+            assertThat(validationResultFromPagedResult.getSubmissionId(), is(equalTo(SUBMISSION_ID_2)));
+            assertThat(validationResultFromPagedResult.hasWarning(), is(equalTo(true)));
+        });
+    }
+
     @After
     public void tearDown() {
         validationResultRepository.deleteAll();
     }
 
+    private SingleValidationResult generateSingleValidationResult(SingleValidationResultStatus singleValidationResultStatus) {
+        SingleValidationResult singleValidationResult = new SingleValidationResult();
+        singleValidationResult.setValidationAuthor(ValidationAuthor.Core);
+        singleValidationResult.setValidationStatus(singleValidationResultStatus);
+
+        return singleValidationResult;
+    }
 }
