@@ -100,6 +100,17 @@ public class ValidationResultRepositoryTest {
         validationResultRepository.insert(validationResult);
 
         // Forth
+        validationResult = new ValidationResult();
+        validationResult.setUuid(UUID.randomUUID().toString());
+        validationResult.setExpectedResults(expectedResults);
+        validationResult.setSubmissionId(SUBMISSION_ID_1);
+        validationResult.setEntityUuid(ENTITY_UUID_2);
+        validationResult.setDataTypeId(SAMPLES_DATA_TYPE);
+        validationResult.setValidationStatus(GlobalValidationStatus.Complete);
+
+        validationResultRepository.insert(validationResult);
+
+        // Fifth
         expectedResults.put(ValidationAuthor.Biosamples, Collections.singletonList(generateSingleValidationResult(SingleValidationResultStatus.Pass)));
 
         validationResult = new ValidationResult();
@@ -142,7 +153,7 @@ public class ValidationResultRepositoryTest {
         Page<ValidationResult> actualValidationResultsPaged =
                 validationResultRepository.findBySubmissionId(SUBMISSION_ID_1, pageRequest);
 
-        assertThat(actualValidationResultsPaged.getTotalElements(), is(equalTo(3L)));
+        assertThat(actualValidationResultsPaged.getTotalElements(), is(equalTo(4L)));
 
         List<ValidationResult> actualValidationResults = actualValidationResultsPaged.getContent();
         assertThat(actualValidationResults.get(0).getEntityUuid(), is(equalTo(ENTITY_UUID_3)));
@@ -163,7 +174,7 @@ public class ValidationResultRepositoryTest {
         List<ValidationResult> actualValidationResults =
                 validationResultRepository.findAllBySubmissionId(SUBMISSION_ID_1);
 
-        assertThat(actualValidationResults.size(), is(equalTo(3)));
+        assertThat(actualValidationResults.size(), is(equalTo(4)));
 
         assertThat(actualValidationResults.get(0).getEntityUuid(), is(equalTo(ENTITY_UUID_3)));
         assertThat(actualValidationResults.get(1).getEntityUuid(), is(equalTo(ENTITY_UUID_1)));
@@ -224,7 +235,7 @@ public class ValidationResultRepositoryTest {
 
         assertThat(validationIssuesByDataType, is(notNullValue()));
         assertThat(validationIssuesByDataType.size(), is(equalTo(2)));
-        assertThat(validationIssuesByDataType.get("samples"), is(equalTo(1)));
+        assertThat(validationIssuesByDataType.get("samples"), is(equalTo(2)));
         assertThat(validationIssuesByDataType.get("sequencingRuns"), is(equalTo(1)));
     }
 
