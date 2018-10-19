@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import uk.ac.ebi.subs.validator.data.SingleValidationResult;
 import uk.ac.ebi.subs.validator.data.ValidationResult;
 import uk.ac.ebi.subs.validator.data.structures.GlobalValidationStatus;
@@ -26,13 +26,14 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = ValidationResultRepository.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = { ValidationResultRepository.class, ValidatorResultRepositoryCustom.class})
 @EnableAutoConfiguration
 public class ValidationResultRepositoryTest {
 
@@ -48,6 +49,9 @@ public class ValidationResultRepositoryTest {
 
     @Autowired
     ValidationResultRepository validationResultRepository;
+
+    @Autowired
+    ValidatorResultRepositoryCustom validatorResultRepositoryCustom;
 
     private ValidationResult validationResult;
 
@@ -74,6 +78,7 @@ public class ValidationResultRepositoryTest {
         validationResultRepository.insert(validationResult);
 
         // Second
+        validationResult = new ValidationResult();
         validationResult.setUuid(UUID.randomUUID().toString());
         validationResult.setExpectedResults(expectedResults);
         validationResult.setSubmissionId(SUBMISSION_ID_2);
@@ -84,6 +89,7 @@ public class ValidationResultRepositoryTest {
         validationResultRepository.insert(validationResult);
 
         // Third
+        validationResult = new ValidationResult();
         validationResult.setUuid(UUID.randomUUID().toString());
         validationResult.setExpectedResults(expectedResults);
         validationResult.setSubmissionId(SUBMISSION_ID_1);
@@ -94,6 +100,20 @@ public class ValidationResultRepositoryTest {
         validationResultRepository.insert(validationResult);
 
         // Forth
+        validationResult = new ValidationResult();
+        validationResult.setUuid(UUID.randomUUID().toString());
+        validationResult.setExpectedResults(expectedResults);
+        validationResult.setSubmissionId(SUBMISSION_ID_1);
+        validationResult.setEntityUuid(ENTITY_UUID_2);
+        validationResult.setDataTypeId(SAMPLES_DATA_TYPE);
+        validationResult.setValidationStatus(GlobalValidationStatus.Complete);
+
+        validationResultRepository.insert(validationResult);
+
+        // Fifth
+        expectedResults.put(ValidationAuthor.Biosamples, Collections.singletonList(generateSingleValidationResult(SingleValidationResultStatus.Pass)));
+
+        validationResult = new ValidationResult();
         validationResult.setUuid(UUID.randomUUID().toString());
         validationResult.setExpectedResults(expectedResults);
         validationResult.setSubmissionId(SUBMISSION_ID_1);
@@ -109,8 +129,8 @@ public class ValidationResultRepositoryTest {
         ValidationResult retrievedResult = validationResultRepository.findOne(validationResult.getUuid());
         System.out.println(retrievedResult);
 
-        assertThat(retrievedResult.getExpectedResults().get(ValidationAuthor.Biosamples),
-                is(Collections.singletonList(generateSingleValidationResult(SingleValidationResultStatus.Error))));
+        assertThat(retrievedResult.getExpectedResults().get(ValidationAuthor.Ena),
+                is(Collections.singletonList(generateSingleValidationResult(SingleValidationResultStatus.Warning))));
     }
 
     @Test
@@ -133,7 +153,7 @@ public class ValidationResultRepositoryTest {
         Page<ValidationResult> actualValidationResultsPaged =
                 validationResultRepository.findBySubmissionId(SUBMISSION_ID_1, pageRequest);
 
-        assertThat(actualValidationResultsPaged.getTotalElements(), is(equalTo(3L)));
+        assertThat(actualValidationResultsPaged.getTotalElements(), is(equalTo(4L)));
 
         List<ValidationResult> actualValidationResults = actualValidationResultsPaged.getContent();
         assertThat(actualValidationResults.get(0).getEntityUuid(), is(equalTo(ENTITY_UUID_3)));
@@ -154,7 +174,7 @@ public class ValidationResultRepositoryTest {
         List<ValidationResult> actualValidationResults =
                 validationResultRepository.findAllBySubmissionId(SUBMISSION_ID_1);
 
-        assertThat(actualValidationResults.size(), is(equalTo(3)));
+        assertThat(actualValidationResults.size(), is(equalTo(4)));
 
         assertThat(actualValidationResults.get(0).getEntityUuid(), is(equalTo(ENTITY_UUID_3)));
         assertThat(actualValidationResults.get(1).getEntityUuid(), is(equalTo(ENTITY_UUID_1)));
@@ -206,6 +226,17 @@ public class ValidationResultRepositoryTest {
             assertThat(validationResultFromPagedResult.getSubmissionId(), is(equalTo(SUBMISSION_ID_2)));
             assertThat(validationResultFromPagedResult.hasWarning(), is(equalTo(true)));
         });
+    }
+
+    @Test
+    public void getValidationIssuesByDataTypeID() {
+        Map<String, Integer> validationIssuesByDataType =
+                validatorResultRepositoryCustom.validationIssuesPerDataTypeId(SUBMISSION_ID_1);
+
+        assertThat(validationIssuesByDataType, is(notNullValue()));
+        assertThat(validationIssuesByDataType.size(), is(equalTo(2)));
+        assertThat(validationIssuesByDataType.get("samples"), is(equalTo(2)));
+        assertThat(validationIssuesByDataType.get("sequencingRuns"), is(equalTo(1)));
     }
 
     @After
