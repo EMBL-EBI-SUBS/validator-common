@@ -46,6 +46,6 @@ public class ValidatorResultRepositoryCustom {
                 )
         );
 
-        return validationIssuesByDattaTypeID;
+        return validationIssuesByDataTypeID;
     }
 }
