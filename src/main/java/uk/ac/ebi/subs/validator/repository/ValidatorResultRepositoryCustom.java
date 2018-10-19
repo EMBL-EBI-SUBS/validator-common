@@ -40,7 +40,7 @@ public class ValidatorResultRepositoryCustom {
                 mongoTemplate.aggregate(aggregation, "validationResult", HashMap.class)
                 .getMappedResults();
 
-        Map<String, Integer> validationIssuesByDattaTypeID = queryResult.stream()
+        Map<String, Integer> validationIssuesByDataTypeID = queryResult.stream()
                 .collect(Collectors.toMap(result ->
                         (String) result.get("_id"), s -> (Integer) s.get("count")
                 )
