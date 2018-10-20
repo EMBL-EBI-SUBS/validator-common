@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
 import uk.ac.ebi.subs.validator.data.ValidationResult;
+import uk.ac.ebi.subs.validator.data.structures.GlobalValidationStatus;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -28,6 +29,10 @@ public interface ValidationResultRepository extends MongoRepository<ValidationRe
 
     @RestResource(exported = false)
     Stream<ValidationResult> findBySubmissionIdAndDataTypeId(@Param("submissionId") String submissionId, @Param("dataTypeId") String dataTypeId);
+
+    @RestResource(exported = false)
+    Stream<ValidationResult> findBySubmissionIdAndValidationStatusIs(
+            @Param("submissionId") String submissionId, @Param("validationStatus") GlobalValidationStatus validationStatus);
 
     @RestResource(exported = false)
     Page<ValidationResult> findBySubmissionIdAndDataTypeIdAndHasError(

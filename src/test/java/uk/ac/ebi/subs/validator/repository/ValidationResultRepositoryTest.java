@@ -74,6 +74,7 @@ public class ValidationResultRepositoryTest {
         validationResultRepository.insert(validationResult);
 
         // Second
+        validationResult = new ValidationResult();
         validationResult.setUuid(UUID.randomUUID().toString());
         validationResult.setExpectedResults(expectedResults);
         validationResult.setSubmissionId(SUBMISSION_ID_2);
@@ -84,6 +85,7 @@ public class ValidationResultRepositoryTest {
         validationResultRepository.insert(validationResult);
 
         // Third
+        validationResult = new ValidationResult();
         validationResult.setUuid(UUID.randomUUID().toString());
         validationResult.setExpectedResults(expectedResults);
         validationResult.setSubmissionId(SUBMISSION_ID_1);
@@ -94,12 +96,35 @@ public class ValidationResultRepositoryTest {
         validationResultRepository.insert(validationResult);
 
         // Forth
+        validationResult = new ValidationResult();
         validationResult.setUuid(UUID.randomUUID().toString());
         validationResult.setExpectedResults(expectedResults);
         validationResult.setSubmissionId(SUBMISSION_ID_1);
         validationResult.setEntityUuid(ENTITY_UUID_2);
         validationResult.setDataTypeId(SAMPLES_DATA_TYPE);
         validationResult.setValidationStatus(GlobalValidationStatus.Complete);
+
+        validationResultRepository.insert(validationResult);
+
+        // Fifth
+        validationResult = new ValidationResult();
+        validationResult.setUuid(UUID.randomUUID().toString());
+        validationResult.setExpectedResults(expectedResults);
+        validationResult.setSubmissionId(SUBMISSION_ID_2);
+        validationResult.setEntityUuid(ENTITY_UUID_2);
+        validationResult.setDataTypeId(SAMPLES_DATA_TYPE);
+        validationResult.setValidationStatus(GlobalValidationStatus.Pending);
+
+        validationResultRepository.insert(validationResult);
+
+        // Sixth
+        validationResult = new ValidationResult();
+        validationResult.setUuid(UUID.randomUUID().toString());
+        validationResult.setExpectedResults(expectedResults);
+        validationResult.setSubmissionId(SUBMISSION_ID_2);
+        validationResult.setEntityUuid(ENTITY_UUID_2);
+        validationResult.setDataTypeId(SEQUENCING_RUN_DATA_TYPE);
+        validationResult.setValidationStatus(GlobalValidationStatus.Pending);
 
         validationResultRepository.insert(validationResult);
     }
@@ -206,6 +231,21 @@ public class ValidationResultRepositoryTest {
             assertThat(validationResultFromPagedResult.getSubmissionId(), is(equalTo(SUBMISSION_ID_2)));
             assertThat(validationResultFromPagedResult.hasWarning(), is(equalTo(true)));
         });
+    }
+
+    @Test
+    public void given3ValidationResultForASubmissionWith2Pending_thenQueryReturnsThe2PendingOnes() {
+        Stream<ValidationResult> pendingValidationResults =
+                validationResultRepository.findBySubmissionIdAndValidationStatusIs(
+                        SUBMISSION_ID_2, GlobalValidationStatus.Pending);
+
+        int pendingValidationResultCount = 0;
+        for (ValidationResult validationResult: pendingValidationResults.collect(Collectors.toList())) {
+            assertThat(validationResult.getValidationStatus(), is(equalTo(GlobalValidationStatus.Pending)));
+            pendingValidationResultCount++;
+        }
+
+        assertThat(pendingValidationResultCount, is(equalTo( 2)));
     }
 
     @After
