@@ -122,6 +122,28 @@ public class ValidationResultRepositoryTest {
         validationResult.setValidationStatus(GlobalValidationStatus.Complete);
 
         validationResultRepository.insert(validationResult);
+
+        // Sixth
+        validationResult = new ValidationResult();
+        validationResult.setUuid(UUID.randomUUID().toString());
+        validationResult.setExpectedResults(expectedResults);
+        validationResult.setSubmissionId(SUBMISSION_ID_2);
+        validationResult.setEntityUuid(ENTITY_UUID_2);
+        validationResult.setDataTypeId(SEQUENCING_RUN_DATA_TYPE);
+        validationResult.setValidationStatus(GlobalValidationStatus.Pending);
+
+        validationResultRepository.insert(validationResult);
+
+        // Seventh
+        validationResult = new ValidationResult();
+        validationResult.setUuid(UUID.randomUUID().toString());
+        validationResult.setExpectedResults(expectedResults);
+        validationResult.setSubmissionId(SUBMISSION_ID_2);
+        validationResult.setEntityUuid(ENTITY_UUID_2);
+        validationResult.setDataTypeId(SAMPLES_DATA_TYPE);
+        validationResult.setValidationStatus(GlobalValidationStatus.Pending);
+
+        validationResultRepository.insert(validationResult);
     }
 
     @Test
@@ -237,6 +259,15 @@ public class ValidationResultRepositoryTest {
         assertThat(validationIssuesByDataType.size(), is(equalTo(2)));
         assertThat(validationIssuesByDataType.get("samples"), is(equalTo(2)));
         assertThat(validationIssuesByDataType.get("sequencingRuns"), is(equalTo(1)));
+    }
+
+    @Test
+    public void given3ValidationResultForASubmissionWith2Pending_thenQueryReturnsThe2PendingOnes() {
+        long pendingValidationResultCount =
+                validationResultRepository.countBySubmissionIdAndValidationStatusIs(
+                        SUBMISSION_ID_2, GlobalValidationStatus.Pending);
+
+        assertThat(pendingValidationResultCount, is(equalTo(2L)));
     }
 
     @After
