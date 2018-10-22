@@ -263,17 +263,11 @@ public class ValidationResultRepositoryTest {
 
     @Test
     public void given3ValidationResultForASubmissionWith2Pending_thenQueryReturnsThe2PendingOnes() {
-        Stream<ValidationResult> pendingValidationResults =
-                validationResultRepository.findBySubmissionIdAndValidationStatusIs(
+        long pendingValidationResultCount =
+                validationResultRepository.countBySubmissionIdAndValidationStatusIs(
                         SUBMISSION_ID_2, GlobalValidationStatus.Pending);
 
-        int pendingValidationResultCount = 0;
-        for (ValidationResult validationResult : pendingValidationResults.collect(Collectors.toList())) {
-            assertThat(validationResult.getValidationStatus(), is(equalTo(GlobalValidationStatus.Pending)));
-            pendingValidationResultCount++;
-        }
-
-        assertThat(pendingValidationResultCount, is(equalTo(2)));
+        assertThat(pendingValidationResultCount, is(equalTo(2L)));
     }
 
     @After

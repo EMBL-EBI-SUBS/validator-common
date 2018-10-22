@@ -31,7 +31,7 @@ public interface ValidationResultRepository extends MongoRepository<ValidationRe
     Stream<ValidationResult> findBySubmissionIdAndDataTypeId(@Param("submissionId") String submissionId, @Param("dataTypeId") String dataTypeId);
 
     @RestResource(exported = false)
-    Stream<ValidationResult> findBySubmissionIdAndValidationStatusIs(
+    long countBySubmissionIdAndValidationStatusIs(
             @Param("submissionId") String submissionId, @Param("validationStatus") GlobalValidationStatus validationStatus);
 
     @RestResource(exported = false)
