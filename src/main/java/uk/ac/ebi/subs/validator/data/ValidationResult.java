@@ -182,7 +182,21 @@ public class ValidationResult {
 
     private void exposeErrorAndWarningMessages() {
         Map<ValidationAuthor, List<String>> errorMessagesByAuthor = new TreeMap<>();
-        this.expectedResults.entrySet().forEach(entry -> errorMessagesByAuthor.put(entry.getKey(), getErrorAndWarningMessages(entry.getValue())));
+
+        for (Map.Entry<ValidationAuthor,List<SingleValidationResult>> entry : this.expectedResults.entrySet()){
+
+            ValidationAuthor author = entry.getKey();
+            List<SingleValidationResult> singleValidationResults = entry.getValue();
+
+            List<String> errorMessages = getErrorAndWarningMessages(singleValidationResults);
+
+            if (!errorMessages.isEmpty()){
+                errorMessagesByAuthor.put(author,errorMessages);
+            }
+
+
+        }
+
         this.errorMessages = new TreeMap<>(errorMessagesByAuthor);
     }
 
