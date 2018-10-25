@@ -81,9 +81,9 @@ public class ErrorExposureTest {
     }
 
     @Test
-    public void errorMessagesByCore_ShouldHave_ZeroMessages() {
+    public void errorMessagesByCore_Should_notBePresent() {
         validationResult.setValidationStatus(GlobalValidationStatus.Complete);
-        assertThat(validationResult.getErrorMessages().get(ValidationAuthor.Core), is(empty()));
+        assertThat(validationResult.getErrorMessages().containsKey(ValidationAuthor.Core), is(false));
     }
 
     @Test
