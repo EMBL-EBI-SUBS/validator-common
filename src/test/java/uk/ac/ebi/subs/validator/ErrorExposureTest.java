@@ -47,7 +47,7 @@ public class ErrorExposureTest {
     @Test
     public void errorMessages_ShouldHave_ThreeEntries() {
         validationResult.setValidationStatus(GlobalValidationStatus.Complete);
-        assertThat(validationResult.getErrorMessages(), is(aMapWithSize(4)));
+        assertThat(validationResult.getErrorMessages(), is(aMapWithSize(3)));
     }
 
     @Test
