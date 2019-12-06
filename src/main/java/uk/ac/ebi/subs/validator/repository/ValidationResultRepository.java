@@ -10,6 +10,7 @@ import uk.ac.ebi.subs.validator.data.ValidationResult;
 import uk.ac.ebi.subs.validator.data.structures.GlobalValidationStatus;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -48,7 +49,7 @@ public interface ValidationResultRepository extends MongoRepository<ValidationRe
     // exported as GET /validationresults/:id
     @Override
     @RestResource(exported = true)
-    ValidationResult findOne(String id);
+    Optional<ValidationResult> findById(String id);
 
     // exported as GET /validationresults
     @Override
