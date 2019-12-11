@@ -44,17 +44,22 @@ dependencies {
     testImplementation 'org.hamcrest:java-hamcrest:2.0.0.0'
 }
 
-task fatJar(type: Jar) {
-    manifest {
-        attributes(
-                'Implementation-Title': project.name,
-                'Implementation-Version': project.version,
-                'Built-By': System.getProperty('user.name'),
-                'Built-Date': new Date(),
-                'Source-Compatibility': project.sourceCompatibility)
-    }
-    with jar
-}
+//task fatJar(type: Jar) {
+//    manifest {
+//        attributes(
+//                'Implementation-Title': project.name,
+//                'Implementation-Version': project.version,
+//                'Built-By': System.getProperty('user.name'),
+//                'Built-Date': new Date(),
+//                'Source-Compatibility': project.sourceCompatibility)
+//    }
+//    from {
+//        configurations.compile.collect {
+//            it.isDirectory() ? it : zipTree(it)
+//        }
+//    }
+//    with jar
+//}
 
 task sourceJar(type: Jar, dependsOn: classes) {
     archiveClassifier.set("sources")
@@ -68,7 +73,7 @@ publishing {
 
             artifact sourceJar
 
-            artifact fatJar
+            artifact jar
 
             pom {
                 name = 'validator-common'
