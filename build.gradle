@@ -16,10 +16,12 @@ plugins {
 }
 
 group 'uk.ac.ebi.subs'
-version '3.11.1-SNAPSHOT'
+version '3.11.2-SNAPSHOT'
 
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
 
 repositories {
     mavenLocal()
@@ -28,7 +30,7 @@ repositories {
 }
 
 dependencies {
-    api 'uk.ac.ebi.subs:subs-data-model:2.14.0-SNAPSHOT'
+    compile 'uk.ac.ebi.subs:subs-data-model:2.14.0-SNAPSHOT'
 
     compileOnly("org.projectlombok:lombok:1.18.10")
     annotationProcessor 'org.projectlombok:lombok:1.18.10'
