@@ -53,11 +53,6 @@ task fatJar(type: Jar) {
                 'Built-Date': new Date(),
                 'Source-Compatibility': project.sourceCompatibility)
     }
-    from {
-        configurations.compile.collect {
-            it.isDirectory() ? it : zipTree(it)
-        }
-    }
     with jar
 }
 
