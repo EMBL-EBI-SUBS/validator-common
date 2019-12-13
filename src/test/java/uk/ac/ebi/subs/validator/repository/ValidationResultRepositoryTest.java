@@ -26,8 +26,10 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -178,8 +180,10 @@ public class ValidationResultRepositoryTest {
         assertThat(actualValidationResultsPaged.getTotalElements(), is(equalTo(4L)));
 
         List<ValidationResult> actualValidationResults = actualValidationResultsPaged.getContent();
-        assertThat(actualValidationResults.get(0).getEntityUuid(), is(equalTo(ENTITY_UUID_3)));
-        assertThat(actualValidationResults.get(1).getEntityUuid(), is(equalTo(ENTITY_UUID_1)));
+        final List<String> uuids =
+                actualValidationResults.stream().map(ValidationResult::getEntityUuid).collect(Collectors.toList());
+        assertThat(uuids, hasItem(ENTITY_UUID_3));
+        assertThat(uuids, hasItem(ENTITY_UUID_1));
     }
 
     @Test
@@ -198,8 +202,10 @@ public class ValidationResultRepositoryTest {
 
         assertThat(actualValidationResults.size(), is(equalTo(4)));
 
-        assertThat(actualValidationResults.get(0).getEntityUuid(), is(equalTo(ENTITY_UUID_3)));
-        assertThat(actualValidationResults.get(1).getEntityUuid(), is(equalTo(ENTITY_UUID_1)));
+        final List<String> uuids =
+                actualValidationResults.stream().map(ValidationResult::getEntityUuid).collect(Collectors.toList());
+        assertThat(uuids, hasItem(ENTITY_UUID_3));
+        assertThat(uuids, hasItem(ENTITY_UUID_1));
     }
 
     @Test
