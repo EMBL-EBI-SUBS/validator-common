@@ -150,7 +150,7 @@ public class ValidationResultRepositoryTest {
 
     @Test
     public void persistValidationResultTest() {
-        ValidationResult retrievedResult = validationResultRepository.findById(validationResult.getUuid()).get();
+        ValidationResult retrievedResult = validationResultRepository.findOne(validationResult.getUuid());
         System.out.println(retrievedResult);
 
         assertThat(retrievedResult.getExpectedResults().get(ValidationAuthor.Ena),
@@ -173,7 +173,7 @@ public class ValidationResultRepositoryTest {
 
     @Test
     public void findBySubmissionIdTest() {
-        PageRequest pageRequest =  PageRequest.of(0, 10);
+        PageRequest pageRequest =  new PageRequest(0, 10);
         Page<ValidationResult> actualValidationResultsPaged =
                 validationResultRepository.findBySubmissionId(SUBMISSION_ID_1, pageRequest);
 
@@ -188,7 +188,7 @@ public class ValidationResultRepositoryTest {
 
     @Test
     public void findValidationResultByInvalidSubmissionId() {
-        PageRequest pageRequest = PageRequest.of(0, 10);
+        PageRequest pageRequest = new PageRequest(0, 10);
         Page<ValidationResult> actualEmptyValidationResult =
                 validationResultRepository.findBySubmissionId(SUBMISSION_ID_INVALID, pageRequest);
 
@@ -232,7 +232,7 @@ public class ValidationResultRepositoryTest {
     public void findValidationResultsBySubmissionIdAndDataTypeIdAndHasError() {
         Page<ValidationResult> pagedValidationResults =
                 validationResultRepository.findBySubmissionIdAndDataTypeIdAndHasError(
-                        SUBMISSION_ID_1, SAMPLES_DATA_TYPE, true, PageRequest.of(0, 50));
+                        SUBMISSION_ID_1, SAMPLES_DATA_TYPE, true, new PageRequest(0, 50));
 
         assertThat(pagedValidationResults.getTotalElements(), is(equalTo(2L)));
         pagedValidationResults.forEach( validationResultFromPagedResult -> {
@@ -246,7 +246,7 @@ public class ValidationResultRepositoryTest {
     public void findValidationResultsBySubmissionIdAndDataTypeIdAndHasWarning() {
         Page<ValidationResult> pagedValidationResults =
                 validationResultRepository.findBySubmissionIdAndDataTypeIdAndHasWarning(
-                        SUBMISSION_ID_2, SEQUENCING_RUN_DATA_TYPE, true, PageRequest.of(0, 50));
+                        SUBMISSION_ID_2, SEQUENCING_RUN_DATA_TYPE, true, new PageRequest(0, 50));
 
         assertThat(pagedValidationResults.getTotalElements(), is(equalTo(1L)));
         pagedValidationResults.forEach( validationResultFromPagedResult -> {
