@@ -49,7 +49,7 @@ public interface ValidationResultRepository extends MongoRepository<ValidationRe
     // exported as GET /validationresults/:id
     @Override
     @RestResource(exported = true)
-    Optional<ValidationResult> findById(String id);
+    ValidationResult findOne(String id);
 
     // exported as GET /validationresults
     @Override
